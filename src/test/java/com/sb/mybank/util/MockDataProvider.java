@@ -36,4 +36,17 @@ public class MockDataProvider
 
         return Arrays.asList(transactionDTO1, transactionDTO2, transactionDTO3);
     }
+
+    public static AccountTransactionDTO getMockTransaction()
+    {
+        //Create a mock transaction
+        AccountTransactionDTO inputDTO = new AccountTransactionDTO();
+        inputDTO.setId(UUID.randomUUID().toString());
+        inputDTO.setUserId("mockUser20");
+        inputDTO.setTimestamp(ZonedDateTime.now());
+        inputDTO.setReference("mock sample 20");
+        inputDTO.setAmount(BigDecimal.valueOf(25));
+
+        return inputDTO;
+    }
 }

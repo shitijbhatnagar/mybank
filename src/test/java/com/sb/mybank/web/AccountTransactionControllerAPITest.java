@@ -6,6 +6,7 @@ package com.sb.mybank.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.mybank.config.TestConfig;
+import com.sb.mybank.constants.APIEndPoints;
 import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
 import com.sb.mybank.util.MockDataProvider;
@@ -52,7 +53,7 @@ public class AccountTransactionControllerAPITest
 
         log.info("AccountTransactionControllerAPITest: Transaction end point GET /transactions invoked");
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/transactions")
+                        .get(APIEndPoints.api_getTransactions)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -64,19 +65,14 @@ public class AccountTransactionControllerAPITest
     @Test
     public void http_createEmployeeAPI() throws Exception
     {
-        AccountTransactionDTO inputDTO = new AccountTransactionDTO();
-        inputDTO.setId(UUID.randomUUID().toString());
-        inputDTO.setUserId("mockUser4");
-        inputDTO.setTimestamp(ZonedDateTime.now());
-        inputDTO.setReference("mock sample 4");
-        inputDTO.setAmount(BigDecimal.valueOf(80));
+        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
         log.info("AccountTransactionControllerAPITest: NEW 01 Mock transaction data created for POST /transactions");
 
         log.info("AccountTransactionControllerAPITest: Transaction end point POST /transactions invoked");
         mockMvc.perform( MockMvcRequestBuilders
-                        .post("/transactions")
+                        .post(APIEndPoints.api_createTransaction)
                         .content(objectMapper.writeValueAsString(inputDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

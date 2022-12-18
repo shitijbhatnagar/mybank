@@ -13,10 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -53,12 +50,7 @@ class AccountTransactionControllerTest {
     {
         log.info("AccountTransactionControllerTest: ut_createTransaction");
 
-        AccountTransactionDTO inputDTO = new AccountTransactionDTO();
-        inputDTO.setId(UUID.randomUUID().toString());
-        inputDTO.setUserId("mockUser20");
-        inputDTO.setTimestamp(ZonedDateTime.now());
-        inputDTO.setReference("mock sample 20");
-        inputDTO.setAmount(BigDecimal.valueOf(120));
+        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
         log.info("AccountTransactionControllerTest: @createTransaction - Mock account transaction created / returned");

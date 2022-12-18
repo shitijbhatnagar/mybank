@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 
 @Slf4j
 @Service
-@Profile("dev") //this bean will only be created when the profile being used is "dev"
+@Profile("!dev") //this bean will only be created when the profile being used is "dev"
 public class SeedTransactionDataLoader {
     private final AccountTransactionService transactionService;
 

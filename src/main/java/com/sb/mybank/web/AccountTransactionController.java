@@ -1,5 +1,6 @@
 package com.sb.mybank.web;
 
+import com.sb.mybank.constants.APIEndPoints;
 import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,14 @@ public class AccountTransactionController
         this.accountTransactionService = accountTransactionService;
     }
 
-    @GetMapping("/transactions")
+    @GetMapping(APIEndPoints.api_getTransactions)
     public List<AccountTransactionDTO> getTransactions()
     {
         log.info("AccountTransactionController: Controller end point to GET TRANSACTIONS");
         return accountTransactionService.findAll();
     }
 
-    @PostMapping("/transactions")
+    @PostMapping(APIEndPoints.api_createTransaction)
      public AccountTransactionDTO createTransaction(@RequestBody @Valid AccountTransactionDTO dto)
      {
          //Pass on amount and reference
