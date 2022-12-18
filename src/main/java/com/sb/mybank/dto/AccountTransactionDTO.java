@@ -1,4 +1,4 @@
-package com.sb.mybank.model;
+package com.sb.mybank.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

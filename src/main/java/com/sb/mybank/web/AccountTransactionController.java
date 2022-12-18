@@ -1,6 +1,6 @@
 package com.sb.mybank.web;
 
-import com.sb.mybank.model.AccountTransactionDTO;
+import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

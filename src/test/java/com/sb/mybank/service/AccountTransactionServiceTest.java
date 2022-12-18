@@ -1,35 +1,29 @@
 package com.sb.mybank.service;
 
-import com.sb.mybank.model.AccountTransactionDTO;
+import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @Slf4j
-@RunWith(SpringRunner.class) //needed along with @SpringBootTest to test the service and repository/DAO methods using mocking
-@SpringBootTest //needed along with @RunWith to test the service and repository/DAO methods using mocking
+@ExtendWith(MockitoExtension.class)
 class AccountTransactionServiceTest {
 
-    //The object to be tested is the AccountTransactionService
-    @Autowired
+    //The object to be tested is the AccountTransactionService and it's dependency (DAO class) will be mocked
+    @InjectMocks
     AccountTransactionService accountTransactionService;
 
     //The service to be mocked - as the DB operations will not be invoked by the AccountTransactionService but mocked
-    @MockBean
+    @Mock
     AccountTransactionDAO accountTransactionDAO;
 
     @Test

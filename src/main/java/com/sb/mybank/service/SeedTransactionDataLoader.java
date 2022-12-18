@@ -1,6 +1,6 @@
 package com.sb.mybank.service;
 
-import com.sb.mybank.model.AccountTransactionDTO;
+import com.sb.mybank.dto.AccountTransactionDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.sb.mybank.util;
 
-import com.sb.mybank.model.AccountTransactionDTO;
+import com.sb.mybank.dto.AccountTransactionDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;

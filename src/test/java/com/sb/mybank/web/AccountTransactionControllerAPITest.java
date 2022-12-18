@@ -1,12 +1,12 @@
 /*
-    MockMvc based HTTP calls to Controller's end points - still unit testing only
+    MockMvc based HTTP calls to Controller's end points - still unit testing + Spring (not an integration test as such)
  */
 
 package com.sb.mybank.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.mybank.config.TestConfig;
-import com.sb.mybank.model.AccountTransactionDTO;
+import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class AccountTransactionControllerAPITest
     private AccountTransactionService accountTransactionService;
 
     @Test
-    //Invoke /transaction end pont to get mock data
+    //Invoke "/transactions" end pont to get mock data
     public void http_getTransactionsAPI() throws Exception
     {
         when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionList());
