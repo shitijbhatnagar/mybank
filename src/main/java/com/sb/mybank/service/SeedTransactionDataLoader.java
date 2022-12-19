@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
-@Profile("!dev") //this bean will only be created when the profile being used is "dev"
+@Profile("dev") //this bean will only be created when the profile being used is "dev"
 public class SeedTransactionDataLoader {
     private final AccountTransactionService transactionService;
 

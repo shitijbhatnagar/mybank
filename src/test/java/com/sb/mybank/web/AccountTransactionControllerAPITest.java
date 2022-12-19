@@ -6,7 +6,7 @@ package com.sb.mybank.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.mybank.config.TestConfig;
-import com.sb.mybank.constants.APIEndPoints;
+import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
 import com.sb.mybank.util.MockDataProvider;
@@ -22,9 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.UUID;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,7 +51,7 @@ public class AccountTransactionControllerAPITest
 
         log.info("AccountTransactionControllerAPITest: Transaction end point GET /transactions invoked");
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(APIEndPoints.api_getTransactions)
+                        .get(APIEndPointsAndConstants.api_getTransactions)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -72,7 +70,7 @@ public class AccountTransactionControllerAPITest
 
         log.info("AccountTransactionControllerAPITest: Transaction end point POST /transactions invoked");
         mockMvc.perform( MockMvcRequestBuilders
-                        .post(APIEndPoints.api_createTransaction)
+                        .post(APIEndPointsAndConstants.api_createTransaction)
                         .content(objectMapper.writeValueAsString(inputDTO))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))

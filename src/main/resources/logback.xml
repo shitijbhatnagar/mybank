@@ -34,4 +34,8 @@
         <appender-ref ref="STD-OUT"/>
     </root>
 
+    <root level="DEBUG">
+        <appender-ref ref="LOG-FILE"/>
+    </root>
+
 </configuration>

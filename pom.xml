@@ -14,7 +14,7 @@
 	<name>mybank</name>
 	<description>My Bank</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -79,7 +79,7 @@
 
 		<dependency>
 			<groupId>com.github.tomakehurst</groupId>
-			<artifactId>wiremock</artifactId>
+			<artifactId>wiremock-jre8</artifactId>
 		</dependency>
 
 	</dependencies>
@@ -88,8 +88,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.github.tomakehurst</groupId>
-				<artifactId>wiremock</artifactId>
-				<version>2.27.2</version>
+				<artifactId>wiremock-jre8</artifactId>
+				<version>2.35.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -104,7 +104,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 				<configuration>
-					<skipTests>false</skipTests>
+					<skipTests>true</skipTests>
 				</configuration>
 <!--
 				<executions>
