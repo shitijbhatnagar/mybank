@@ -17,7 +17,7 @@ class AccountTransactionServiceTest {
 
     //The object to be tested is the AccountTransactionService and it's dependency (DAO class) will be mocked
     @InjectMocks
-    AccountTransactionService accountTransactionService;
+    AccountTransactionServiceImpl accountTransactionService;
 
     //The service to be mocked - as the DB operations will not be invoked by the AccountTransactionService but mocked
     @Mock

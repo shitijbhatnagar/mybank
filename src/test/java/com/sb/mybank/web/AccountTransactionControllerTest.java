@@ -6,6 +6,7 @@ package com.sb.mybank.web;
 
 import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.service.AccountTransactionService;
+import com.sb.mybank.service.AccountTransactionServiceImpl;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ class AccountTransactionControllerTest {
     @InjectMocks
     AccountTransactionController accountTransactionController;
     @Mock
-    AccountTransactionService accountTransactionService;
+    AccountTransactionServiceImpl accountTransactionService;
     @Test
     public void ut_testFindAll()
     {

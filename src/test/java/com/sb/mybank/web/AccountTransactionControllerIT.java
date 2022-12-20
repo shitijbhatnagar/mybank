@@ -12,13 +12,8 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
-import okio.BufferedSink;
 import org.junit.jupiter.api.*;
 import okhttp3.*;
-
-import javax.annotation.Nullable;
-import java.io.IOException;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
@@ -56,7 +51,7 @@ public class AccountTransactionControllerIT
 
     //Hit the mocked GET /transactions end point, mock the response and verify mocked data
     @Test
-    public void wiremock_happy_datamatch_getTransactions() throws Exception
+    public void wiremock_happy_dataMatch_getTransactions() throws Exception
     {
         //Define stub
         log.debug("AccountTransactionControllerIT: @wiremock_happy_requestmatch_getTransactions: Attempting stubbing");
@@ -88,16 +83,16 @@ public class AccountTransactionControllerIT
 
     //Hit the mocked POST /transactions end point, mock the response and verify mocked data
     @Test
-    public void wiremock_happy_datamatch_createTransaction() throws Exception
+    public void wiremock_happy_dataMatch_createTransaction() throws Exception
     {
         //Define stub
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: Attempting stubbing");
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: Attempting stubbing");
         givenThat(post(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
                 .withRequestBody(equalToJson(MockDataProvider.getMockCreateTransactionJSON()))
                 .willReturn(ok())
                 .willReturn(aResponse().withBody(MockDataProvider.getMockCreateTransactionJSON())));
 
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: Stubbing done successfully");
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: Stubbing done successfully");
 
         //Invoke the Wiremock stub
         OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -107,19 +102,60 @@ public class AccountTransactionControllerIT
                 .url(APIEndPointsAndConstants.const_wireMockPreAPIURL + APIEndPointsAndConstants.api_getCreateTransactions) //hit the end point
                 .post(requestBody)
                 .build();
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: API Request prepared");
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: API Request prepared");
 
         //Step 2 - When: invoke the GET /transactions end point
         Response response = client.newCall(request).execute();
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: API Request executed");
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: API Request executed");
         String apiResponse = response.body().string();
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: API data returned - " + apiResponse);
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: API data returned - " + apiResponse);
 
-        //Retrieve the list of transactions from the response and match against the mocked data expected
+        //Retrieve the created transaction from the response and match against the mocked data expected
         assertEquals(true,response.isSuccessful());
         assertEquals(MockDataProvider.getMockCreateTransactionJSON(),apiResponse);
-        log.debug("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions: Asserts executed successfully");
-        log.info("AccountTransactionControllerIT: @wiremock_happy_datamatch_createTransactions executed successfully");
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction: Asserts executed successfully");
+        log.info("AccountTransactionControllerIT: @wiremock_happy_dataMatch_createTransaction executed successfully");
+    }
+
+    //Hit the mocked POST /transactions end point, match request against JSON fields, mock the response and verify mocked data
+    @Test
+    public void wiremock_happy_dataJsonMatch_createTransaction() throws Exception
+    {
+        //Define stub
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: Attempting stubbing");
+        givenThat(post(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
+                //any request sent to the API end point with JSON data comprising following 05 fields will be accepted
+                .withRequestBody(matchingJsonPath("id"))
+                .withRequestBody(matchingJsonPath("userId"))
+                .withRequestBody(matchingJsonPath("timestamp"))
+                .withRequestBody(matchingJsonPath("reference"))
+                .withRequestBody(matchingJsonPath("amount"))
+                .willReturn(ok())
+                .willReturn(aResponse().withBody(MockDataProvider.getMockCreateTransactionJSON())));
+
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: Stubbing done successfully");
+
+        //Invoke the Wiremock stub
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType JSON = MediaType.parse("application/json");
+        RequestBody requestBody = RequestBody.create(JSON, MockDataProvider.getMockCreateTransactionJSON());
+        Request request = new Request.Builder()
+                .url(APIEndPointsAndConstants.const_wireMockPreAPIURL + APIEndPointsAndConstants.api_getCreateTransactions) //hit the end point
+                .post(requestBody)
+                .build();
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: API Request prepared");
+
+        //Step 2 - When: invoke the GET /transactions end point
+        Response response = client.newCall(request).execute();
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: API Request executed");
+        String apiResponse = response.body().string();
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: API data returned - " + apiResponse);
+
+        //Retrieve the created transaction from the response and match against the mocked data expected
+        assertEquals(true,response.isSuccessful());
+        assertEquals(MockDataProvider.getMockCreateTransactionJSON(),apiResponse);
+        log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: Asserts executed successfully");
+        log.info("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction executed successfully");
     }
 
     @BeforeAll
