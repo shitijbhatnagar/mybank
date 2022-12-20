@@ -20,43 +20,42 @@ import static org.mockito.Mockito.when;
 @Slf4j
 @ExtendWith(MockitoExtension.class)
 class AccountTransactionControllerTest {
-
     @InjectMocks
     AccountTransactionController accountTransactionController;
-
     @Mock
     AccountTransactionService accountTransactionService;
-
     @Test
     public void ut_testFindAll()
     {
-        log.info("AccountTransactionControllerTest: ut_testFindAll");
+        log.debug("AccountTransactionControllerTest: @ut_testFindAll");
 
         //When the service is called, DAO class should not be called and mocked data should be returned
         when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionList());
 
         //Invoke the controller method (like any java class) to get a list of transactions
         List<AccountTransactionDTO> transactions = accountTransactionController.getTransactions();
-        log.info("AccountTransactionControllerTest: ut_testFindAll - Mock account transaction created / returned");
+        log.debug("AccountTransactionControllerTest: @ut_testFindAll - Mock account transaction created / returned");
 
         //Check expected no of mocked transactions are returned
         assertEquals(MockDataProvider.getMockTransactionList().size(), transactions.size());
-        log.info("AccountTransactionControllerTest: ut_testFindAll - assertEquals check executed");
+        log.debug("AccountTransactionControllerTest: @ut_testFindAll - assertEquals check executed");
+        log.info("AccountTransactionControllerTest: @ut_testFindAll executed successfully");
     }
 
     @Test
     //Service & Repository test - create new transaction
     void ut_createTransaction()
     {
-        log.info("AccountTransactionControllerTest: ut_createTransaction");
+        log.debug("AccountTransactionControllerTest: @ut_createTransaction");
 
         AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
-        log.info("AccountTransactionControllerTest: @createTransaction - Mock account transaction created / returned");
+        log.debug("AccountTransactionControllerTest: @ut_createTransaction - Mock account transaction created / returned");
 
         assertEquals(inputDTO, accountTransactionController.createTransaction(inputDTO));
         assertEquals(inputDTO.getUserId(), accountTransactionController.createTransaction(inputDTO).getUserId());
-        log.info("AccountTransactionControllerTest: @createTransaction - assertEquals check(s) executed");
+        log.debug("AccountTransactionControllerTest: @ut_createTransaction - assertEquals check(s) executed");
+        log.info("AccountTransactionControllerTest: @ut_createTransaction executed successfully");
     }
 }

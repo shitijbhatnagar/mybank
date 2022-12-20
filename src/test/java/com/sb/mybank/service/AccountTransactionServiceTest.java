@@ -27,25 +27,27 @@ class AccountTransactionServiceTest {
     //Service & Repository test - get transactions
     void ut_findAll()
     {
-        log.info("AccountTransactionServiceTest: @getTransactions");
+        log.debug("AccountTransactionServiceTest: @ut_findAll");
 
         when(accountTransactionDAO.findAll()).thenReturn(MockDataProvider.getMockTransactionList());
-        log.info("AccountTransactionServiceTest: @findAll - Mock account transaction list returned");
+        log.debug("AccountTransactionServiceTest: @ut_findAll - Mock account transaction list returned");
         assertEquals(3, accountTransactionService.findAll().size());
-        log.info("AccountTransactionServiceTest: @findAll - assertEquals check executed");
+        log.debug("AccountTransactionServiceTest: @ut_findAll - assertEquals check executed");
+        log.info("AccountTransactionServiceTest: @ut_findAll executed successfully");
     }
 
     @Test
     //Service & Repository test - create new transaction
-    void ut_createInDB()
+    void ut_createTransaction()
     {
-        log.info("AccountTransactionServiceTest: @createTransaction");
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction");
 
         AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
 
         when(accountTransactionDAO.createInDB(inputDTO)).thenReturn(inputDTO);
-        log.info("AccountTransactionServiceTest: @createTransaction - Mock account transaction created / returned");
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction - Mock account transaction created / returned");
         assertEquals(inputDTO, accountTransactionService.createInDB(inputDTO));
-        log.info("AccountTransactionServiceTest: @createTransaction - assertEquals check executed");
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction - assertEquals check executed");
+        log.info("AccountTransactionServiceTest: @ut_createTransaction - executed successfully");
     }
 }

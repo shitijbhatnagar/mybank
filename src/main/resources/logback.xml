@@ -29,11 +29,6 @@
         </rollingPolicy>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="LOG-FILE"/>
-        <appender-ref ref="STD-OUT"/>
-    </root>
-
     <root level="DEBUG">
         <appender-ref ref="LOG-FILE"/>
     </root>
