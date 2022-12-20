@@ -49,7 +49,7 @@ public class AccountTransactionControllerAPITest
 
         log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Transaction end point GET /transactions invoked");
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(APIEndPointsAndConstants.api_getTransactions)
+                        .get(APIEndPointsAndConstants.api_getCreateTransactions)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -60,14 +60,14 @@ public class AccountTransactionControllerAPITest
     }
 
     @Test
-    public void http_createEmployeeAPI() throws Exception
+    public void http_createTransactionAPI() throws Exception
     {
         AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
-        log.debug("AccountTransactionControllerAPITest: @http_createEmployeeAPI NEW 01 Mock transaction data created for POST /transactions");
+        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI NEW 01 Mock transaction data created for POST /transactions");
 
-        log.debug("AccountTransactionControllerAPITest: @http_createEmployeeAPI Transaction end point POST /transactions invoked");
+        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI Transaction end point POST /transactions invoked");
         mockMvc.perform( MockMvcRequestBuilders
                         .post(APIEndPointsAndConstants.api_createTransaction)
                         .content(objectMapper.writeValueAsString(inputDTO))
@@ -76,7 +76,7 @@ public class AccountTransactionControllerAPITest
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        log.debug("AccountTransactionControllerAPITest: @http_createEmployeeAPI Successful transaction created from POST /transactions");
-        log.info("AccountTransactionControllerAPITest: @http_createEmployeeAPI executed successfully");
+        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI Successful transaction created from POST /transactions");
+        log.info("AccountTransactionControllerAPITest: @http_createTransactionAPI executed successfully");
     }
 }

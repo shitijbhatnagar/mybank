@@ -63,4 +63,9 @@ public class MockDataProvider
     {
         return "[{\\\"id\":\\\"dc82a225-bfff-4bb7-b13b-cdba279a60b7\\\",\\\"userId\\\":\\\"mockUser1\\\",\\\"timestamp\\\":\\\"2022-12-18T21:49+0530\\\",\\\"reference\\\":\\\"mock sample 1\\\",\\\"amount\\\":80}]";
     }
+
+    public static String getMockCreateTransactionJSON()
+    {
+        return "{\"id\":\"dc82a225-bfff-4bb7-b13b-cdba279a60b7\",\"userId\":\"mockUser1\",\"timestamp\":\"2022-12-18T21:49+0530\",\"reference\":\"mock sample 1\",\"amount\":80}";
+    }
 }

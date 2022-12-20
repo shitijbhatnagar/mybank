@@ -23,7 +23,7 @@ public class PublicServiceIT
         givenThat((any(anyUrl()).willReturn(ok())));
         log.debug("PublicServiceIT: wiremock_happy_ok_publicapi: Stubbing done successfully");
 
-        //Step 2 - When: invoke the GET /transactions end point
+        //Step 2 - When: invoke the Public service/API (though mocked)
         boolean apiAvailability = publicService.IsPublicAPIAvailable(APIEndPointsAndConstants.api_publicAPIEndpoint);
         log.debug("PublicServiceIT: wiremock_happy_ok_publicapi: API Request executed");
 

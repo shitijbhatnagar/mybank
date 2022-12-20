@@ -23,7 +23,7 @@ public class AccountTransactionController
         this.accountTransactionService = accountTransactionService;
     }
 
-    @GetMapping(APIEndPointsAndConstants.api_getTransactions)
+    @GetMapping(APIEndPointsAndConstants.api_getCreateTransactions)
     public List<AccountTransactionDTO> getTransactions()
     {
         log.info("AccountTransactionController: Controller end point to GET TRANSACTIONS");
