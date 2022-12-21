@@ -1,7 +1,6 @@
 package com.sb.mybank.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,12 +13,7 @@ import java.util.Arrays;
 @Service
 public class PublicServiceImpl implements PublicService
 {
-   String host;
-
-    public PublicServiceImpl(String host)
-    {
-        this.host = host;
-    }
+    String host;
 
     public boolean IsPublicAPIAvailable(String apiEndpoint)
     {
@@ -32,4 +26,9 @@ public class PublicServiceImpl implements PublicService
         //Execute the API call and return its availability status
         return new RestTemplate().exchange(host + apiEndpoint, HttpMethod.GET, entity, String.class).getStatusCode().is2xxSuccessful();
     }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
 }

@@ -1,7 +1,10 @@
-package com.sb.mybank.dto;
+package com.sb.mybank.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
@@ -12,29 +15,35 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@Table("T_TRANSACTION")
 @Component
-public class AccountTransactionDTO
+public class AccountTransaction
 {
-//    private String id;
+    @Id
+    private String id;
 
-    @NotBlank
+    @Column("USER_ID")
     private String userId;
 
-    @JsonProperty("amount")
-    @Min(1)
-    @Max(100)
-    @NotNull
     private BigDecimal amount;
 
+    @Column("CREATED_AT")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmZ")
     private ZonedDateTime timestamp;
 
     @NotBlank
     private String reference;
 
-//    public AccountTransactionDTO() {
-//        this.id = UUID.randomUUID().toString();
-//    }
+    public AccountTransaction(){}
+
+    public AccountTransaction(String userId, String reference, BigDecimal amount, ZonedDateTime timestamp)
+    {
+        //this.id = UUID.randomUUID().toString();
+        this.userId = userId;
+        this.reference = reference;
+        this.amount = amount;
+        this.timestamp = timestamp;
+    }
 
     public String getUserId() {
         return userId;
@@ -44,13 +53,13 @@ public class AccountTransactionDTO
         this.userId = userId;
     }
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BigDecimal getAmount() {
         return amount;

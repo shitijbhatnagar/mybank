@@ -23,7 +23,7 @@ public class SeedTransactionDataLoader {
     @PostConstruct
     public void setup()
     {
-        log.debug("Creating dev transactions... Started");
+        log.debug("SeedTransactionDataLoader: @setup() Creating dev transactions... Started");
         AccountTransactionDTO transactionDTO = new AccountTransactionDTO();
         transactionDTO.setUserId("someUserId4");
         transactionDTO.setTimestamp(ZonedDateTime.now());
@@ -43,6 +43,6 @@ public class SeedTransactionDataLoader {
         transactionDTO.setAmount(BigDecimal.valueOf(27));
         transactionService.createInDB(transactionDTO);
 
-        log.debug("Creating dev transactions... Completed");
+        log.debug("SeedTransactionDataLoader: @setup Creating dev transactions... Completed");
     }
 }

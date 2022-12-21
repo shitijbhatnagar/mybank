@@ -14,9 +14,9 @@ public class PublicServiceIT
 
     static PublicServiceImpl publicService;
 
-    //Hit a public API end point (but mock it)
+    //Hit a mocked (public) API end point
     @Test
-    public void wiremock_happy_ok_publicapi() throws Exception
+    public void wiremock_happy_ok_publicapi()
     {
         //Step 1 - Given : setup the API Stub
         log.debug("PublicServiceIT: wiremock_happy_ok_publicapi: Attempting stubbing");
@@ -37,7 +37,8 @@ public class PublicServiceIT
     static void setup()
     {
         //Setup the PublicService with same local host / URL as Mock Server
-        publicService = new PublicServiceImpl(APIEndPointsAndConstants.const_wireMockPreAPIURL);
+        publicService = new PublicServiceImpl();
+        publicService.setHost(APIEndPointsAndConstants.const_wireMockPreAPIURL);
         log.debug("PublicServiceIT: Public Service is setup for local");
 
         //Setup WireMock server (internally a Jetty server)

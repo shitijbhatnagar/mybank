@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.ZonedDateTime;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,7 +46,7 @@ public class AccountTransactionControllerAPITest
     //Invoke "/transactions" end pont to get mock data
     public void http_getTransactionsAPI() throws Exception
     {
-        when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionList());
+        when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionDTOList());
         log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Mock transaction data set for GET /transactions end point");
 
         log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Transaction end point GET /transactions invoked");
@@ -62,7 +64,7 @@ public class AccountTransactionControllerAPITest
     @Test
     public void http_createTransactionAPI() throws Exception
     {
-        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransaction();
+        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
         log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI NEW 01 Mock transaction data created for POST /transactions");
