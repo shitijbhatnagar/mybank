@@ -36,15 +36,6 @@ public class AccountTransaction
 
     public AccountTransaction(){}
 
-    public AccountTransaction(String userId, String reference, BigDecimal amount, ZonedDateTime timestamp)
-    {
-        //this.id = UUID.randomUUID().toString();
-        this.userId = userId;
-        this.reference = reference;
-        this.amount = amount;
-        this.timestamp = timestamp;
-    }
-
     public String getUserId() {
         return userId;
     }

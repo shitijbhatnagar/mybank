@@ -125,6 +125,7 @@ public class AccountTransactionControllerIT
         log.debug("AccountTransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: Attempting stubbing");
         givenThat(post(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
                 //any request sent to the API end point with JSON data comprising following 05 fields will be accepted
+                .withRequestBody(matchingJsonPath("id"))
                 .withRequestBody(matchingJsonPath("userId"))
                 .withRequestBody(matchingJsonPath("timestamp"))
                 .withRequestBody(matchingJsonPath("reference"))

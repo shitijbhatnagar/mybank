@@ -15,23 +15,31 @@ public class MockDataProvider
     //Return a list of mocked account transaction DTOs
     public static List<AccountTransactionDTO> getMockTransactionDTOList()
     {
+        String uuid1 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("5").toString();
+        String uuid2 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("6").toString();
+        String uuid3 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("7").toString();
+
         AccountTransactionDTO transactionDTO1 = new AccountTransactionDTO(), transactionDTO2 = new AccountTransactionDTO(), transactionDTO3 = new AccountTransactionDTO();
+
+        transactionDTO1.setId(uuid1);
         transactionDTO1.setUserId("mockUser1");
         transactionDTO1.setTimestamp(ZonedDateTime.now());
         transactionDTO1.setReference("mock sample 1");
         transactionDTO1.setAmount(BigDecimal.valueOf(80));
 
+        transactionDTO2.setId(uuid2);
         transactionDTO2.setUserId("mockUser2");
         transactionDTO2.setTimestamp(ZonedDateTime.now());
         transactionDTO2.setReference("mock sample 2");
         transactionDTO2.setAmount(BigDecimal.valueOf(81));
 
+        transactionDTO3.setId(uuid3);
         transactionDTO3.setUserId("mockUser3");
         transactionDTO3.setTimestamp(ZonedDateTime.now());
         transactionDTO3.setReference("mock sample 3");
         transactionDTO3.setAmount(BigDecimal.valueOf(82));
 
-        log.debug("MockDataProvider: Transaction mock dto data setup");
+        log.debug("MockDataProvider: Transaction mock dto data returned");
 
         return Arrays.asList(transactionDTO1, transactionDTO2, transactionDTO3);
     }
@@ -39,23 +47,30 @@ public class MockDataProvider
     //Return a list of mocked account transaction (entity classes)
     public static List<AccountTransaction> getMockTransactionEntityList()
     {
+        String uuid1 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("1").toString();
+        String uuid2 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("2").toString();
+        String uuid3 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("3").toString();
+
         AccountTransaction transaction1 = new AccountTransaction(), transaction2 = new AccountTransaction(), transaction3 = new AccountTransaction();
+        transaction1.setId(uuid1);
         transaction1.setUserId("mockUser1");
         transaction1.setTimestamp(ZonedDateTime.now());
         transaction1.setReference("mock sample 1");
         transaction1.setAmount(BigDecimal.valueOf(80));
 
+        transaction2.setId(uuid2);
         transaction2.setUserId("mockUser2");
         transaction2.setTimestamp(ZonedDateTime.now());
         transaction2.setReference("mock sample 2");
         transaction2.setAmount(BigDecimal.valueOf(81));
 
+        transaction3.setId(uuid3);
         transaction3.setUserId("mockUser3");
         transaction3.setTimestamp(ZonedDateTime.now());
         transaction3.setReference("mock sample 3");
         transaction3.setAmount(BigDecimal.valueOf(82));
 
-        log.debug("MockDataProvider: Transaction mock entity data setup");
+        log.debug("MockDataProvider: Transaction mock entity data returned");
 
         return Arrays.asList(transaction1, transaction2, transaction3);
     }
@@ -64,6 +79,7 @@ public class MockDataProvider
     {
         //Create a mock transaction
         AccountTransactionDTO inputDTO = new AccountTransactionDTO();
+        inputDTO.setId(new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("4").toString());
         inputDTO.setUserId("mockUser20");
         inputDTO.setTimestamp(ZonedDateTime.now());
         inputDTO.setReference("mock sample 20");
@@ -75,6 +91,12 @@ public class MockDataProvider
     public static AccountTransactionDTO convertEntityToDTO(AccountTransaction transaction)
     {
         AccountTransactionDTO transactionDTO = new AccountTransactionDTO();
+        //if transaction.id is not null, only then set the id to a value in the dto
+        Optional<String> optional = Optional.ofNullable(transaction.getId());
+        if(optional.isPresent())
+        {
+            transactionDTO.setId(transaction.getId());
+        }
         transactionDTO.setReference(transaction.getReference());
         transactionDTO.setUserId(transaction.getUserId());
         transactionDTO.setAmount(transaction.getAmount());
@@ -86,6 +108,12 @@ public class MockDataProvider
     public static AccountTransaction convertDTOToEntity(AccountTransactionDTO transactionDTO)
     {
         AccountTransaction transaction = new AccountTransaction();
+        //if transaction.id is not null, only then set the id to a value in the dto
+        Optional<String> optional = Optional.ofNullable(transactionDTO.getId());
+        if(optional.isPresent())
+        {
+            transaction.setId(transactionDTO.getId());
+        }
         transaction.setTimestamp(transactionDTO.getTimestamp());
         transaction.setUserId(transactionDTO.getUserId());
         transaction.setReference(transactionDTO.getReference());
@@ -96,11 +124,11 @@ public class MockDataProvider
 
     public static String getMockTransactionJSON()
     {
-        return "[{\\\"userId\\\":\\\"mockUser1\\\",\\\"timestamp\\\":\\\"2022-12-18T21:49+0530\\\",\\\"reference\\\":\\\"mock sample 1\\\",\\\"amount\\\":80}]";
+        return "[{\\\"id\\\":\\\"dc82a225-bfff-4bb7-b13b-cdba279a6058\\\",\\\"userId\\\":\\\"mockUser58\\\",\\\"timestamp\\\":\\\"2022-12-18T21:49+0530\\\",\\\"reference\\\":\\\"mock sample 58\\\",\\\"amount\\\":58}]";
     }
 
     public static String getMockCreateTransactionJSON()
     {
-        return "{\"userId\":\"mockUser1\",\"timestamp\":\"2022-12-18T21:49+0530\",\"reference\":\"mock sample 1\",\"amount\":80}";
+        return "{\"id\":\"dc82a225-bfff-4bb7-b13b-cdba279a6058\",\"userId\":\"mockUser58\",\"timestamp\":\"2022-12-18T21:49+0530\",\"reference\":\"mock sample 58\",\"amount\":58}";
     }
 }

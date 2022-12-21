@@ -15,7 +15,7 @@ import java.util.UUID;
 @Component
 public class AccountTransactionDTO
 {
-//    private String id;
+    private String id;
 
     @NotBlank
     private String userId;
@@ -32,10 +32,6 @@ public class AccountTransactionDTO
     @NotBlank
     private String reference;
 
-//    public AccountTransactionDTO() {
-//        this.id = UUID.randomUUID().toString();
-//    }
-
     public String getUserId() {
         return userId;
     }
@@ -44,13 +40,13 @@ public class AccountTransactionDTO
         this.userId = userId;
     }
 
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public void setId(String id) {
-//        this.id = id;
-//    }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public BigDecimal getAmount() {
         return amount;

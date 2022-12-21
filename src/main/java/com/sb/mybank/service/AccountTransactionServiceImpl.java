@@ -46,6 +46,9 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
         AccountTransaction transaction = MockDataProvider.convertDTOToEntity(inputDTO);
         accountTransactionRepository.save(transaction);
         log.debug("AccountTransactionServiceImpl: createInDB() - New Transaction successfully created");
+
+        //Assign the Id value from Entity into the DTO object (as that is missing at this point - unless set)
+        inputDTO.setId(transaction.getId());
         log.info("AccountTransactionDAO: createInDB() - New Transaction successfully created");
 
         return inputDTO;
