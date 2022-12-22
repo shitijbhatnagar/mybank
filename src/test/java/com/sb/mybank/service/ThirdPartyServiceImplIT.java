@@ -8,7 +8,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
 @Slf4j
-public class ThirdPartyServiceIT
+public class ThirdPartyServiceImplIT
 {
     static WireMockServer wireMockServer;
 
