@@ -1,59 +1,60 @@
 package com.sb.mybank.service;
 
 import com.sb.mybank.dto.AccountTransactionDTO;
+import com.sb.mybank.model.AccountTransaction;
+import com.sb.mybank.repository.AccountTransactionRepository;
 import com.sb.mybank.util.MockDataProvider;
+import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-class AccountTransactionServiceTest {
+class AccountTransactionServiceTest{
 
     //The object to be tested is the AccountTransactionService and it's dependency (DAO class) will be mocked
     @InjectMocks
-    AccountTransactionService accountTransactionService;
+    AccountTransactionServiceImpl accountTransactionService;
 
     //The service to be mocked - as the DB operations will not be invoked by the AccountTransactionService but mocked
     @Mock
-    AccountTransactionDAO accountTransactionDAO;
+    AccountTransactionRepository accountTransactionRepository;
 
     @Test
     //Service & Repository test - get transactions
     void ut_findAll()
     {
-        log.info("AccountTransactionServiceTest: @getTransactions");
-
-        when(accountTransactionDAO.findAll()).thenReturn(MockDataProvider.getMockTransactionList());
-        log.info("AccountTransactionServiceTest: @findAll - Mock account transaction list returned");
+        log.debug("AccountTransactionServiceTest: @ut_findAll");
+        when(accountTransactionRepository.findAll()).thenReturn(MockDataProvider.getMockTransactionEntityList());
+        log.debug("AccountTransactionServiceTest: @ut_findAll - Mock account transaction list returned");
         assertEquals(3, accountTransactionService.findAll().size());
-        log.info("AccountTransactionServiceTest: @findAll - assertEquals check executed");
+        log.debug("AccountTransactionServiceTest: @ut_findAll - assertEquals check executed");
+        log.info("AccountTransactionServiceTest: @ut_findAll executed successfully");
     }
 
     @Test
     //Service & Repository test - create new transaction
-    void ut_createInDB()
+    void ut_createTransaction()
     {
-        log.info("AccountTransactionServiceTest: @createTransaction");
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction");
 
-        AccountTransactionDTO inputDTO = new AccountTransactionDTO();
-        inputDTO.setId(UUID.randomUUID().toString());
-        inputDTO.setUserId("mockUser4");
-        inputDTO.setTimestamp(ZonedDateTime.now());
-        inputDTO.setReference("mock sample 4");
-        inputDTO.setAmount(BigDecimal.valueOf(85));
+        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO(); //what comes from API consumer
+        AccountTransaction inputEntity = MockDataProvider.convertDTOToEntity(inputDTO); //what is given to Repository
 
-        when(accountTransactionDAO.createInDB(inputDTO)).thenReturn(inputDTO);
-        log.info("AccountTransactionServiceTest: @createTransaction - Mock account transaction created / returned");
-        assertEquals(inputDTO, accountTransactionService.createInDB(inputDTO));
-        log.info("AccountTransactionServiceTest: @createTransaction - assertEquals check executed");
+        //Using lenient() since Mockito is matching Entity object signatures/addresses & they can be different but same data
+        lenient().when(accountTransactionRepository.save(inputEntity)).thenReturn(inputEntity);
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction - Mock account transaction created / returned");
+
+        AccountTransactionDTO outputDTO = accountTransactionService.createInDB(inputDTO);
+        assertEquals(inputDTO, outputDTO);
+        log.debug("AccountTransactionServiceTest: @ut_createTransaction - assertEquals check executed");
+        log.info("AccountTransactionServiceTest: @ut_createTransaction - executed successfully");
     }
 }

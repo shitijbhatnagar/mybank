@@ -20,7 +20,7 @@
             </Pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
+            <!-- daily rollover -->
             <fileNamePattern>${LOG_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -29,9 +29,8 @@
         </rollingPolicy>
     </appender>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="LOG-FILE"/>
-        <appender-ref ref="STD-OUT"/>
     </root>
 
 </configuration>

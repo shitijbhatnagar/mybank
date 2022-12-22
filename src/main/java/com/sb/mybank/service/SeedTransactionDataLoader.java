@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -22,26 +23,26 @@ public class SeedTransactionDataLoader {
     @PostConstruct
     public void setup()
     {
-        log.debug("Creating dev transactions... Started");
-        AccountTransactionDTO transactionDTO = new AccountTransactionDTO();
-        transactionDTO.setUserId("someUserId4");
-        transactionDTO.setTimestamp(ZonedDateTime.now());
-        transactionDTO.setReference("sample 4");
-        transactionDTO.setAmount(BigDecimal.valueOf(25));
-        transactionService.createInDB(transactionDTO);
+        log.debug("SeedTransactionDataLoader: @setup() Creating dev transactions... Started");
+        AccountTransactionDTO transactionDTO1 = new AccountTransactionDTO(), transactionDTO2 = new AccountTransactionDTO(), transactionDTO3 = new AccountTransactionDTO();
+        transactionDTO1.setUserId("someUserId4");
+        transactionDTO1.setTimestamp(ZonedDateTime.now());
+        transactionDTO1.setReference("sample 4");
+        transactionDTO1.setAmount(BigDecimal.valueOf(25));
+        transactionService.createInDB(transactionDTO1);
 
-        transactionDTO.setUserId("someUserId5");
-        transactionDTO.setTimestamp(ZonedDateTime.now());
-        transactionDTO.setReference("sample 5");
-        transactionDTO.setAmount(BigDecimal.valueOf(26));
-        transactionService.createInDB(transactionDTO);
+        transactionDTO2.setUserId("someUserId5");
+        transactionDTO2.setTimestamp(ZonedDateTime.now());
+        transactionDTO2.setReference("sample 5");
+        transactionDTO2.setAmount(BigDecimal.valueOf(26));
+        transactionService.createInDB(transactionDTO2);
 
-        transactionDTO.setUserId("someUserId6");
-        transactionDTO.setTimestamp(ZonedDateTime.now());
-        transactionDTO.setReference("sample 6");
-        transactionDTO.setAmount(BigDecimal.valueOf(27));
-        transactionService.createInDB(transactionDTO);
+        transactionDTO3.setUserId("someUserId6");
+        transactionDTO3.setTimestamp(ZonedDateTime.now());
+        transactionDTO3.setReference("sample 6");
+        transactionDTO3.setAmount(BigDecimal.valueOf(27));
+        transactionService.createInDB(transactionDTO3);
 
-        log.debug("Creating dev transactions... Completed");
+        log.debug("SeedTransactionDataLoader: @setup Creating dev transactions... Completed");
     }
 }
