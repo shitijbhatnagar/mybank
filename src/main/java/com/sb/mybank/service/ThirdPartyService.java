@@ -3,6 +3,6 @@ package com.sb.mybank.service;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface PublicService {
-    public boolean IsPublicAPIAvailable(String host);
+public interface ThirdPartyService {
+    public boolean IsServiceAvailable(String host);
 }

@@ -11,11 +11,11 @@ import java.util.Arrays;
 
 @Slf4j
 @Service
-public class PublicServiceImpl implements PublicService
+public class ThirdPartyServiceImpl implements ThirdPartyService
 {
     String host;
 
-    public boolean IsPublicAPIAvailable(String apiEndpoint)
+    public boolean IsServiceAvailable(String apiEndpoint)
     {
         //Setup the API call
         HttpHeaders headers = new HttpHeaders();
