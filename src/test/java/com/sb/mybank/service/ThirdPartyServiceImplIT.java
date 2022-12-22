@@ -27,8 +27,9 @@ public class ThirdPartyServiceImplIT
         boolean apiAvailability = thirdPartyService.IsServiceAvailable(APIEndPointsAndConstants.api_publicAPIEndpoint);
         log.debug("ThirdPartyServiceIT: wiremock_happy_ok_publicapi: API Request executed");
 
-        //Step 3 - Assert
+        //Step 3 - Assert & verify
         assertEquals(true,apiAvailability);
+        verify(getRequestedFor(urlEqualTo(APIEndPointsAndConstants.api_publicAPIEndpoint)));
         log.debug("ThirdPartyServiceIT: wiremock_happy_ok_publicapi: Asserts executed successfully");
         log.info("ThirdPartyServiceIT: wiremock_happy_ok_publicapi executed successfully");
     }

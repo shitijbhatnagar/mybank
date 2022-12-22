@@ -127,7 +127,12 @@ public class MockDataProvider
         return "[{\\\"id\\\":\\\"dc82a225-bfff-4bb7-b13b-cdba279a6058\\\",\\\"userId\\\":\\\"mockUser58\\\",\\\"timestamp\\\":\\\"2022-12-18T21:49+0530\\\",\\\"reference\\\":\\\"mock sample 58\\\",\\\"amount\\\":58}]";
     }
 
-    public static String getMockCreateTransactionJSON()
+    public static String getMockCreateTransactionRequestJSON()
+    {
+        return "{\"userId\":\"mockUser58\",\"timestamp\":\"2022-12-18T21:49+0530\",\"reference\":\"mock sample 58\",\"amount\":58}";
+    }
+
+    public static String getMockCreateTransactionResponseJSON()
     {
         return "{\"id\":\"dc82a225-bfff-4bb7-b13b-cdba279a6058\",\"userId\":\"mockUser58\",\"timestamp\":\"2022-12-18T21:49+0530\",\"reference\":\"mock sample 58\",\"amount\":58}";
     }
