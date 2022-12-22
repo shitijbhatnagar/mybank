@@ -17,6 +17,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String handlemethodArgumentNotValid(MethodArgumentNotValidException e) {
         log.debug("GlobalExceptionHandler: MethodArgumentNotValidException - " + e.getMessage());
+        log.info("GlobalExceptionHandler: MethodArgumentNotValidException - " + e.getMessage());
         return "Method Argument Not Valid  - " + e.getMessage();
     }
 
@@ -24,6 +25,7 @@ public class GlobalExceptionHandler
     @ExceptionHandler(ConstraintViolationException.class)
     public String handleConstraintViolation(ConstraintViolationException e) {
         log.debug("GlobalExceptionHandler: ConstraintViolationException - " + e.getMessage());
+        log.info("GlobalExceptionHandler: ConstraintViolationException - " + e.getMessage());
         return "Constraint Violated - " + e.getMessage();
     }
 }

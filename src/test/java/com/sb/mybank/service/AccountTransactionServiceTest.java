@@ -4,6 +4,7 @@ import com.sb.mybank.dto.AccountTransactionDTO;
 import com.sb.mybank.model.AccountTransaction;
 import com.sb.mybank.repository.AccountTransactionRepository;
 import com.sb.mybank.util.MockDataProvider;
+import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-class AccountTransactionServiceTest {
+class AccountTransactionServiceTest{
 
     //The object to be tested is the AccountTransactionService and it's dependency (DAO class) will be mocked
     @InjectMocks
