@@ -1,36 +1,35 @@
-package com.sb.mybank.dto;
+package com.sb.mybank.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.stereotype.Component;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
-@Component
-public class AccountTransactionDTO
+@Entity
+@Table(name = "T_TRANSACTION")
+public class Transaction
 {
+    @Id
+    @Column(columnDefinition = "UUID")
+    @GeneratedValue(generator="UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @NotBlank
+    @Column(name = "USER_ID")
     private String userId;
 
-    @JsonProperty("amount")
-    @Min(1)
-    @Max(100)
-    @NotNull
     private BigDecimal amount;
 
+    @Column(name = "CREATED_AT")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmZ")
     private ZonedDateTime timestamp;
 
     @NotBlank
     private String reference;
+
+    public Transaction(){}
 
     public String getUserId() {
         return userId;

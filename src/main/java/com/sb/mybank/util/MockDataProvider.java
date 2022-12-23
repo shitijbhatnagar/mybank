@@ -1,8 +1,8 @@
 package com.sb.mybank.util;
 
 import com.sb.mybank.constants.APIEndPointsAndConstants;
-import com.sb.mybank.dto.AccountTransactionDTO;
-import com.sb.mybank.model.AccountTransaction;
+import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.model.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.time.ZoneId;
@@ -13,13 +13,13 @@ import java.util.*;
 public class MockDataProvider
 {
     //Return a list of mocked account transaction DTOs
-    public static List<AccountTransactionDTO> getMockTransactionDTOList()
+    public static List<TransactionDTO> getMockTransactionDTOList()
     {
         String uuid1 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("5").toString();
         String uuid2 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("6").toString();
         String uuid3 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("7").toString();
 
-        AccountTransactionDTO transactionDTO1 = new AccountTransactionDTO(), transactionDTO2 = new AccountTransactionDTO(), transactionDTO3 = new AccountTransactionDTO();
+        TransactionDTO transactionDTO1 = new TransactionDTO(), transactionDTO2 = new TransactionDTO(), transactionDTO3 = new TransactionDTO();
 
         transactionDTO1.setId(uuid1);
         transactionDTO1.setUserId("mockUser1");
@@ -45,13 +45,13 @@ public class MockDataProvider
     }
 
     //Return a list of mocked account transaction (entity classes)
-    public static List<AccountTransaction> getMockTransactionEntityList()
+    public static List<Transaction> getMockTransactionEntityList()
     {
         String uuid1 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("1").toString();
         String uuid2 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("2").toString();
         String uuid3 = new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("3").toString();
 
-        AccountTransaction transaction1 = new AccountTransaction(), transaction2 = new AccountTransaction(), transaction3 = new AccountTransaction();
+        Transaction transaction1 = new Transaction(), transaction2 = new Transaction(), transaction3 = new Transaction();
         transaction1.setId(uuid1);
         transaction1.setUserId("mockUser1");
         transaction1.setTimestamp(ZonedDateTime.now());
@@ -75,10 +75,10 @@ public class MockDataProvider
         return Arrays.asList(transaction1, transaction2, transaction3);
     }
 
-    public static AccountTransactionDTO getMockTransactionDTO()
+    public static TransactionDTO getMockTransactionDTO()
     {
         //Create a mock transaction
-        AccountTransactionDTO inputDTO = new AccountTransactionDTO();
+        TransactionDTO inputDTO = new TransactionDTO();
         inputDTO.setId(new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("4").toString());
         inputDTO.setUserId("mockUser20");
         inputDTO.setTimestamp(ZonedDateTime.now());
@@ -88,9 +88,9 @@ public class MockDataProvider
         return inputDTO;
     }
 
-    public static AccountTransactionDTO convertEntityToDTO(AccountTransaction transaction)
+    public static TransactionDTO convertEntityToDTO(Transaction transaction)
     {
-        AccountTransactionDTO transactionDTO = new AccountTransactionDTO();
+        TransactionDTO transactionDTO = new TransactionDTO();
         //if transaction.id is not null, only then set the id to a value in the dto
         Optional<String> optional = Optional.ofNullable(transaction.getId());
         if(optional.isPresent())
@@ -105,9 +105,9 @@ public class MockDataProvider
         return transactionDTO;
     }
 
-    public static AccountTransaction convertDTOToEntity(AccountTransactionDTO transactionDTO)
+    public static Transaction convertDTOToEntity(TransactionDTO transactionDTO)
     {
-        AccountTransaction transaction = new AccountTransaction();
+        Transaction transaction = new Transaction();
         //if transaction.id is not null, only then set the id to a value in the dto
         Optional<String> optional = Optional.ofNullable(transactionDTO.getId());
         if(optional.isPresent())
