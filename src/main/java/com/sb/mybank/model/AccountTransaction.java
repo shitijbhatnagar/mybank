@@ -1,33 +1,28 @@
 package com.sb.mybank.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
-@Table("T_TRANSACTION")
-@Component
+@Entity
+@Table(name = "T_TRANSACTION")
 public class AccountTransaction
 {
     @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
-    @Column("USER_ID")
+    @Column(name = "USER_ID")
     private String userId;
 
     private BigDecimal amount;
 
-    @Column("CREATED_AT")
+    @Column(name = "CREATED_AT")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmZ")
     private ZonedDateTime timestamp;
 
