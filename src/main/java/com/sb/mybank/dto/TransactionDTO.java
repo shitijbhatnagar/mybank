@@ -1,10 +1,7 @@
-package com.sb.mybank.model;
+package com.sb.mybank.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
@@ -13,28 +10,26 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
-@Table("T_TRANSACTION")
 @Component
-public class AccountTransaction
+public class TransactionDTO
 {
-    @Id
     private String id;
 
-    @Column("USER_ID")
+    @NotBlank
     private String userId;
 
+    @JsonProperty("amount")
+    @Min(1)
+    @Max(100)
+    @NotNull
     private BigDecimal amount;
 
-    @Column("CREATED_AT")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmZ")
     private ZonedDateTime timestamp;
 
     @NotBlank
     private String reference;
-
-    public AccountTransaction(){}
 
     public String getUserId() {
         return userId;

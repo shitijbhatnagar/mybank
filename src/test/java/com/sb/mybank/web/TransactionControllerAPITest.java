@@ -7,8 +7,8 @@ package com.sb.mybank.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.mybank.config.TestConfig;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
-import com.sb.mybank.dto.AccountTransactionDTO;
-import com.sb.mybank.service.AccountTransactionService;
+import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.service.TransactionService;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -22,34 +22,31 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.time.ZonedDateTime;
-
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(controllers = AccountTransactionController.class) //needed to do HTTP test of a controller (and use mock data)
+@WebMvcTest(controllers = TransactionController.class) //needed to do HTTP test of a controller (and use mock data)
 @Import(TestConfig.class)
-public class AccountTransactionControllerAPITest
+public class TransactionControllerAPITest
 {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
     @MockBean
-    private AccountTransactionService accountTransactionService;
+    private TransactionService accountTransactionService;
 
     @Test
     //Invoke "/transactions" end pont to get mock data
     public void http_getTransactionsAPI() throws Exception
     {
         when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionDTOList());
-        log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Mock transaction data set for GET /transactions end point");
+        log.debug("TransactionControllerAPITest: @http_getTransactionsAPI Mock transaction data set for GET /transactions end point");
 
-        log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Transaction end point GET /transactions invoked");
+        log.debug("TransactionControllerAPITest: @http_getTransactionsAPI Transaction end point GET /transactions invoked");
         mockMvc.perform(MockMvcRequestBuilders
                         .get(APIEndPointsAndConstants.api_getCreateTransactions)
                         .accept(MediaType.APPLICATION_JSON))
@@ -57,19 +54,19 @@ public class AccountTransactionControllerAPITest
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
 
-        log.debug("AccountTransactionControllerAPITest: @http_getTransactionsAPI Transactions retrieved from GET /transactions");
-        log.info("AccountTransactionControllerAPITest: @http_getTransactionsAPI executed successfully");
+        log.debug("TransactionControllerAPITest: @http_getTransactionsAPI Transactions retrieved from GET /transactions");
+        log.info("TransactionControllerAPITest: @http_getTransactionsAPI executed successfully");
     }
 
     @Test
     public void http_createTransactionAPI() throws Exception
     {
-        AccountTransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO();
+        TransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
-        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI NEW 01 Mock transaction data created for POST /transactions");
+        log.debug("TransactionControllerAPITest: @http_createTransactionAPI NEW 01 Mock transaction data created for POST /transactions");
 
-        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI Transaction end point POST /transactions invoked");
+        log.debug("TransactionControllerAPITest: @http_createTransactionAPI Transaction end point POST /transactions invoked");
         mockMvc.perform( MockMvcRequestBuilders
                         .post(APIEndPointsAndConstants.api_createTransaction)
                         .content(objectMapper.writeValueAsString(inputDTO))
@@ -78,7 +75,7 @@ public class AccountTransactionControllerAPITest
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        log.debug("AccountTransactionControllerAPITest: @http_createTransactionAPI Successful transaction created from POST /transactions");
-        log.info("AccountTransactionControllerAPITest: @http_createTransactionAPI executed successfully");
+        log.debug("TransactionControllerAPITest: @http_createTransactionAPI Successful transaction created from POST /transactions");
+        log.info("TransactionControllerAPITest: @http_createTransactionAPI executed successfully");
     }
 }

@@ -1,6 +1,6 @@
 package com.sb.mybank.service;
 
-import com.sb.mybank.dto.AccountTransactionDTO;
+import com.sb.mybank.dto.TransactionDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -8,15 +8,14 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
 @Profile("dev") //this bean will only be created when the profile being used is "dev"
 public class SeedTransactionDataLoader {
-    private final AccountTransactionService transactionService;
+    private final TransactionService transactionService;
 
-    public SeedTransactionDataLoader(AccountTransactionService transactionService) {
+    public SeedTransactionDataLoader(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 
@@ -24,7 +23,7 @@ public class SeedTransactionDataLoader {
     public void setup()
     {
         log.debug("SeedTransactionDataLoader: @setup() Creating dev transactions... Started");
-        AccountTransactionDTO transactionDTO1 = new AccountTransactionDTO(), transactionDTO2 = new AccountTransactionDTO(), transactionDTO3 = new AccountTransactionDTO();
+        TransactionDTO transactionDTO1 = new TransactionDTO(), transactionDTO2 = new TransactionDTO(), transactionDTO3 = new TransactionDTO();
         transactionDTO1.setUserId("someUserId4");
         transactionDTO1.setTimestamp(ZonedDateTime.now());
         transactionDTO1.setReference("sample 4");
