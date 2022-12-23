@@ -88,6 +88,17 @@ public class MockDataProvider
         return inputDTO;
     }
 
+    //This method returns DTO that can be used in an actual create/insert operation
+    public static TransactionDTO getTestTransactionDTO()
+    {
+        TransactionDTO inputDTO = new TransactionDTO();
+        inputDTO.setUserId("mockUser001");
+        inputDTO.setTimestamp(ZonedDateTime.now());
+        inputDTO.setReference("mock sample 1");
+        inputDTO.setAmount(BigDecimal.valueOf(1));
+
+        return inputDTO;
+    }
     public static TransactionDTO convertEntityToDTO(Transaction transaction)
     {
         TransactionDTO transactionDTO = new TransactionDTO();
