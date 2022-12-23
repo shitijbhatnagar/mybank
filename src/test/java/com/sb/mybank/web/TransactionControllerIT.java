@@ -14,6 +14,8 @@ import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import okhttp3.*;
+import org.springframework.context.annotation.Profile;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
