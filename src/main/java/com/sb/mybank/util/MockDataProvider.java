@@ -94,7 +94,7 @@ public class MockDataProvider
     {
         TransactionDTO inputDTO = new TransactionDTO();
         inputDTO.setUserId("mockUser001");
-        inputDTO.setTimestamp(ZonedDateTime.now());
+        inputDTO.setTimestamp(ZonedDateTime.now(ZoneId.systemDefault()));
         inputDTO.setReference("mock sample 1");
         inputDTO.setAmount(BigDecimal.valueOf(1));
 

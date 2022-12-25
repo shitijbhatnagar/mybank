@@ -12,6 +12,7 @@ import java.time.ZonedDateTime;
 public class Transaction
 {
     @Id
+    //@Column(columnDefinition = "UUID")
     @GeneratedValue(generator="UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;

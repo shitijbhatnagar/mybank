@@ -1,6 +1,6 @@
 create table if not exists T_TRANSACTION
 (
-    id varchar(255) primary key,
+    id uuid primary key,
     reference varchar(255) NOT NULL,
     user_id varchar(255) NOT NULL,
     amount  DECIMAL NOT NULL,
