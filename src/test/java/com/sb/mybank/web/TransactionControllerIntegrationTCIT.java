@@ -22,7 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.containers.PostgreSQLContainer;
+//import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -40,19 +40,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TransactionControllerIntegrationTCIT
 {
     //Define the PostgreSQL container
-    @Container
-    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
-            .withPassword("inmemory")
-            .withUsername("inmemory");
+//    @Container
+//    public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer()
+//            .withPassword("inmemory")
+//            .withUsername("inmemory");
 
     //Defne the properties of PostgreSQL DB (in container)
-    @DynamicPropertySource
-    static void postgresqlProperties(DynamicPropertyRegistry registry)
-    {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-    }
+//    @DynamicPropertySource
+//    static void postgresqlProperties(DynamicPropertyRegistry registry)
+//    {
+//        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+//        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+//        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+//    }
 
 
     @Autowired
