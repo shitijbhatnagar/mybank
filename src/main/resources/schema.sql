@@ -4,7 +4,7 @@ create table if not exists T_TRANSACTION
     reference varchar(255) NOT NULL,
     user_id varchar(255) NOT NULL,
     amount  DECIMAL NOT NULL,
-    created_at timestamp NOT NULL
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
 create table if not exists T_REFERRAL
