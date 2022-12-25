@@ -55,7 +55,7 @@ public class TransactionControllerIntegrationIT
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Transaction end point POST /transactions invoked");
 
         //3 records are inserted at startup via 'SeedTransationDataLoader' if profile is "dev" + data.sql, so a new
-        // insert implies total count of records should be 3+1 = 4 otherwise it should be 1 value if profile is not "dev"
+        // insert implies total count of records should be 3+1+1 = 5 else  it should be 2 value if profile is not "dev"
         assertEquals(5, transactionRepository.findAll().size());
 
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Successful transaction created from POST /transactions");
