@@ -8,7 +8,7 @@ public class MybankApplication {
 
 	public static void main(String[] args)
 	{
-		//Note that the property spring.jpa.hibernate.ddl-auto needs to be set to 'validate' for data.sql to run
+		//Note that the property spring.jpa.hibernate.ddl-auto needs to be set to 'validate' for data-dev.sql to run
 		SpringApplication.run(MybankApplication.class, args);
 	}
 

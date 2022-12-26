@@ -1,11 +1,11 @@
 package com.sb.mybank.repository;
 
-import com.sb.mybank.model.Transaction;
-import org.springframework.stereotype.Component;
+import com.sb.mybank.model.Referral;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 @Component
-public interface TransactionRepository extends JpaRepository<Transaction, String>
+public interface ReferralRepository extends JpaRepository<Referral, String>
 {
     //Standard implementation available in JpaRepository interface
 }

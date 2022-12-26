@@ -6,6 +6,7 @@ import com.sb.mybank.model.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -93,7 +94,7 @@ public class MockDataProvider
     {
         TransactionDTO inputDTO = new TransactionDTO();
         inputDTO.setUserId("mockUser001");
-        inputDTO.setTimestamp(ZonedDateTime.now());
+        inputDTO.setTimestamp(ZonedDateTime.now(ZoneId.systemDefault()));
         inputDTO.setReference("mock sample 1");
         inputDTO.setAmount(BigDecimal.valueOf(1));
 
