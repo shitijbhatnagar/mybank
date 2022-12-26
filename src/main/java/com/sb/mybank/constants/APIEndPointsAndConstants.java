@@ -14,4 +14,12 @@ public interface APIEndPointsAndConstants
     public static int const_wireMockPort = 8090;
 
     public static String const_wireMockPreAPIURL = "http://" + const_wireMockHost + ":" + const_wireMockPort;
+
+    public static String const_PostgreSQL_Test_DB_Name = "test";
+
+    public static String const_PostgreSQL_Version = "postgres:11.1";
+
+    public static String const_testModeIndividual = "0";
+
+    public static String const_testModeAll = "1";
 }

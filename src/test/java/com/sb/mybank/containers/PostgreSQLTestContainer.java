@@ -1,21 +1,20 @@
 package com.sb.mybank.containers;
 
+import com.sb.mybank.constants.APIEndPointsAndConstants;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 //Create the PostgreSQL Test container
 public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestContainer>
 {
-    public static final String POSTGRESQL_VERSION = "postgres:11.1";
-    public static final String DB_NAME = "test";
     public static PostgreSQLContainer container;
 
     public PostgreSQLTestContainer() {
-        super(POSTGRESQL_VERSION);
+        super(APIEndPointsAndConstants.const_PostgreSQL_Version);
     }
 
     public static PostgreSQLContainer getInstance() {
         if (container == null) {
-            container = new PostgreSQLTestContainer().withDatabaseName(DB_NAME);
+            container = new PostgreSQLTestContainer().withDatabaseName(APIEndPointsAndConstants.const_PostgreSQL_Test_DB_Name);
         }
         return container;
     }
@@ -30,6 +29,6 @@ public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestC
 
     @Override
     public void stop()
-        {
+    {
     }
 }

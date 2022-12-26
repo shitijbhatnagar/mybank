@@ -59,8 +59,6 @@ public class TransactionControllerIntegrationIT
 
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Transaction end point POST /transactions invoked");
 
-        //3 records are inserted at startup via 'SeedTransationDataLoader' if profile is "dev" + data-dev.sql, so a new
-        // insert implies total count of records should be 3+1+1 = 5 else  it should be 2 value if profile is not "dev"
         assertEquals(2, transactionRepository.findAll().size());
 
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Successful transaction created from POST /transactions");
@@ -79,12 +77,10 @@ public class TransactionControllerIntegrationIT
                 .andExpect(status().isOk())
                 .andDo(print());
 
-        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Transaction end point POST /transactions invoked");
+        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Transaction end point GET /transactions invoked");
 
-        //3 records are inserted at startup through 'SeedTransationDataLoader' if profile is "dev" + data-dev.sql
         assertEquals(1, transactionRepository.findAll().size());
-
-        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Successful transaction created from POST /transactions");
+        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Successful transaction created from GET /transactions");
         log.info("TransactionControllerIntegrationIT: @int_http_getTransactions executed successfully");
     }
 }

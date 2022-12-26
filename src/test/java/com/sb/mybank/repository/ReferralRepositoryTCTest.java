@@ -2,24 +2,29 @@ package com.sb.mybank.repository;
 
 import com.sb.mybank.config.ContainersEnv;
 import com.sb.mybank.model.Referral;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 /*
  * Pre-requisites:
  * 1) Ensure Docker Service is running on your machine (if Windows, in Services)
  * 2) Ensure Docker Desktop is running (so you can see visually how a new container gets created and destroyed)
- * 3) Ensure you have a data-dev.sql script with some data inserted for the table/repository under test
- * 4) Modify the data in data-dev.sql to ensure that a single record is inserted and matched in assertEquals
+ * 3) Ensure you have a data-test.sql (+ any other) script with some data inserted for the repository under test
+ * 4) Ensure right data in data-test.sql (+ any other) to ensure that inserted data gets matched in assertEquals
  */
 
+@Slf4j
 @ActiveProfiles("test")
 @Profile("test")
 @ExtendWith(SpringExtension.class)
@@ -30,10 +35,13 @@ public class ReferralRepositoryTCTest extends ContainersEnv
     private ReferralRepository referralRepository;
 
     @Test
-    public void tc_repo_get_referrals(){
+    @SqlGroup({@Sql(value = "classpath:data-test-additional.sql", executionPhase = BEFORE_TEST_METHOD)})
+    public void int_tc_repo_get_referrals(){
         List<Referral> referrals = referralRepository.findAll();
 
-        //data-dev.sql would be run and at least 1 record will be available in the database
-        assertEquals(1, referrals.size());
+        //data-test.sql & data-test-additional.sql would be run, so 2 records will be available in the database
+        assertEquals(2, referrals.size());
+        log.debug("ReferralRepositoryTCTest: @int_tc_repo_get_referrals - Referral Repository test successfully executed");
+        log.info("ReferralRepositoryTCTest: @int_tc_repo_get_referrals - Referral Repository test successfully executed");
     }
 }
