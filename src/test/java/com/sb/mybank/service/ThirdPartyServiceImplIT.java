@@ -5,10 +5,13 @@ import com.sb.mybank.constants.APIEndPointsAndConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
+@ActiveProfiles("test")
+@Profile("test")
 @Slf4j
 public class ThirdPartyServiceImplIT
 {
