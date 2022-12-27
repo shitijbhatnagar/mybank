@@ -16,7 +16,7 @@ public class TransactionDTO
 {
     private String id;
 
-    @NotBlank
+    @NotNull
     private String userId;
 
     @JsonProperty("amount")
@@ -26,6 +26,7 @@ public class TransactionDTO
     private BigDecimal amount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mmZ")
+    @NotNull
     private ZonedDateTime timestamp;
 
     @NotBlank
