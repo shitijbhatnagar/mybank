@@ -2,14 +2,15 @@ package com.sb.mybank.web;
 
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.exception.TransactionNotFoundException;
 import com.sb.mybank.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -27,6 +28,19 @@ public class TransactionController
     {
         log.info("TransactionController: Controller end point to GET TRANSACTIONS");
         return accountTransactionService.findAll();
+    }
+
+    @GetMapping(APIEndPointsAndConstants.api_getCreateTransactions + "/{id}")
+    public TransactionDTO getTransaction(@NotNull @Valid @PathVariable String id)
+    {
+        log.info("TransactionController: Controller end point to GET TRANSACTION for id " + id);
+        TransactionDTO dto = accountTransactionService.findTransactionById(id);
+        if(Optional.ofNullable(dto).isPresent())
+            return dto;
+        else {
+            throw new TransactionNotFoundException("Transaction could not be located for requested id " + id);
+        }
+
     }
 
     @PostMapping(APIEndPointsAndConstants.api_createTransaction)

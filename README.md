@@ -1,9 +1,9 @@
 'MyBank' V1
 
 - This project 'mybank' demonstrates the use of Spring Boot, H2/PostgreSQL to build a simple REST app (GET/POST)
-- The project uses the standard Spring Boot concepts like REST, JPA, Profiles, Mocking & more  
-- The project also has the necessary test code to test the main java code including using Testcontainers
-- This is the V1 (version 1) of the project & next version will add more REST support, more exception handling etc.
+- The project uses the standard Spring Boot concepts like REST, JPA, Profiles, Testcontainers, JUnit, Wiremock etc
+- The project also has the necessary test code to test the main java code
+- This is the V1 (version 1) of the project & next version will add more REST support & other features
 
 A word on the Test Code: 
 - There are two independent entities being tested - Referral (T_REFERRAL table) and Transaction (T_TRANSACTION)
@@ -18,8 +18,21 @@ A word on the Test Configuration (application-test.properties):
 - The default value of test.mode is 0 (indicates individual run) in the application-test.properties file
 
 A word on the Application URLs:
-- Use the URL http://localhost:8081/transactions (replace 8081 by any over-ridden port) to get all transactions
-- or to POST/Create a new transaction
+- Use the URL http://localhost:8081/transactions (replace 8081 by any over-ridden port) to get or create transactions
+- Sample payload to create a new transaction is:
+  {
+  "userId": "someUserId",
+  "reference": "user comments",
+  "amount": 9.90
+  }
+- and the expected response should be like below
+  {
+  "id": "c21957a8-b772-48a8-b51c-eadc1ba56adc",
+  "userId": "someUserId",
+  "timestamp": "2022-12-27T14:06+0530",
+  "reference": "user comments",
+  "amount": 9.90
+  }
 
 Credits/Acknowledgements:
 

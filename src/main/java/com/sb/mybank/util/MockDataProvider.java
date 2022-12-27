@@ -121,12 +121,22 @@ public class MockDataProvider
     {
         Transaction transaction = new Transaction();
         //if transaction.id is not null, only then set the id to a value in the dto
-        Optional<String> optional = Optional.ofNullable(transactionDTO.getId());
-        if(optional.isPresent())
+        Optional<String> optionalId = Optional.ofNullable(transactionDTO.getId());
+        if(optionalId.isPresent())
         {
             transaction.setId(transactionDTO.getId());
         }
-        transaction.setTimestamp(transactionDTO.getTimestamp());
+        Optional<ZonedDateTime> optionalTimestamp = Optional.ofNullable(transactionDTO.getTimestamp());
+        if(!optionalTimestamp.isPresent())
+        {
+            //If timestamp is not provided by user, set the current time stamp
+            transaction.setTimestamp(ZonedDateTime.now(ZoneId.systemDefault()));
+        }
+        else
+        {
+            //Set the timestamp available from the DTO itself
+            transaction.setTimestamp(transactionDTO.getTimestamp().toLocalDateTime().atZone(ZoneId.systemDefault()));
+        }
         transaction.setUserId(transactionDTO.getUserId());
         transaction.setReference(transactionDTO.getReference());
         transaction.setAmount(transactionDTO.getAmount());

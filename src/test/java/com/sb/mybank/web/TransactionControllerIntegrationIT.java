@@ -5,6 +5,7 @@ import com.sb.mybank.MybankApplication;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.dto.TransactionDTO;
 import com.sb.mybank.repository.TransactionRepository;
+import com.sb.mybank.service.TransactionServiceImpl;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class TransactionControllerIntegrationIT
 {
+    @Autowired
+    TransactionServiceImpl transactionService;
+
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -59,7 +63,7 @@ public class TransactionControllerIntegrationIT
 
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Transaction end point POST /transactions invoked");
 
-        assertEquals(2, transactionRepository.findAll().size());
+        assertEquals(2, transactionService.findAll().size());
 
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction Successful transaction created from POST /transactions");
         log.info("TransactionControllerIntegrationIT: @int_http_createTransaction executed successfully");
@@ -79,8 +83,33 @@ public class TransactionControllerIntegrationIT
 
         log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Transaction end point GET /transactions invoked");
 
-        assertEquals(1, transactionRepository.findAll().size());
-        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Successful transaction created from GET /transactions");
+        assertEquals(1, transactionService.findAll().size());
+        log.debug("TransactionControllerIntegrationIT: @int_http_getTransactions Successful transaction list retrieved from  GET /transactions");
         log.info("TransactionControllerIntegrationIT: @int_http_getTransactions executed successfully");
+    }
+
+    @Test
+    @SqlGroup({@Sql(value = "classpath:schema-test.sql", executionPhase = BEFORE_TEST_METHOD)})
+    void int_http_getSpecificTransaction() throws Exception
+    {
+        log.debug("TransactionControllerIntegrationIT: @int_http_getSpecificTransaction Checking for existing transactions presence");
+        assertEquals(1, transactionService.findAll().size());
+        //Retrieve the Transaction Id
+        String transactionId = transactionService.findAll().iterator().next().getId();
+        log.debug("TransactionControllerIntegrationIT: @int_http_getSpecificTransaction Now checking for specific transaction " + transactionId);
+
+        mockMvc.perform( MockMvcRequestBuilders
+                        .get(APIEndPointsAndConstants.api_createTransaction + "/" + transactionId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        log.debug("TransactionControllerIntegrationIT: @int_http_getSpecificTransaction Transaction end point GET /transactions invoked");
+
+        TransactionDTO dto = transactionService.findTransactionById(transactionId);
+        assertEquals(transactionId, dto.getId());
+        log.info("TransactionControllerIntegrationIT: @int_http_getSpecificTransaction executed successfully");
     }
 }

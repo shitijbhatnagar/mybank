@@ -7,5 +7,8 @@ public interface TransactionService
 {
     public List<TransactionDTO> findAll();
 
+    public TransactionDTO findTransactionById(String id);
+
     public TransactionDTO createInDB(TransactionDTO inputDTO);
+
 }

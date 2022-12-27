@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Slf4j
@@ -35,6 +36,23 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionsDTOList;
     }
 
+    //Locate the transaction in the system using Id
+    public TransactionDTO findTransactionById(String id){
+        List<TransactionDTO> transactionsDTOList = new CopyOnWriteArrayList<>();
+        Optional<Transaction> optionalTransaction = accountTransactionRepository.findById(id);
+
+        if(optionalTransaction.isPresent())
+        {
+            log.debug("TransactionServiceImpl: findTransactionById() Transactions retrieved for id " + id);
+            log.info("TransactionServiceImpl: findTransactionById() Transactions retrieved for id " + id);
+            return MockDataProvider.convertEntityToDTO(optionalTransaction.get());
+        }
+
+        log.debug("Unable to locate requested transaction with id " + id);
+        log.info("Unable to locate requested transaction with id " + id);
+        return null;
+    }
+
     @Transactional
     public TransactionDTO createInDB(TransactionDTO inputDTO) {
         log.debug("TransactionServiceImpl: createInDB() - ALERT: This is a DB operation");
@@ -47,8 +65,9 @@ public class TransactionServiceImpl implements TransactionService {
         accountTransactionRepository.save(transaction);
         log.debug("TransactionServiceImpl: createInDB() - New Transaction successfully created");
 
-        //Assign the Id value from Entity into the DTO object (as that is missing at this point - unless set)
+        //Assign the Id & timestamp value from Entity into the DTO object (as that is/might be missing at this point - unless set)
         inputDTO.setId(transaction.getId());
+        inputDTO.setTimestamp(transaction.getTimestamp());
         log.info("AccountTransactionDAO: createInDB() - New Transaction successfully created");
 
         return inputDTO;
