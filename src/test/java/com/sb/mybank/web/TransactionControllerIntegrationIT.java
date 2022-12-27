@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.mybank.MybankApplication;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.dto.TransactionDTO;
-import com.sb.mybank.repository.TransactionRepository;
 import com.sb.mybank.service.TransactionServiceImpl;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +33,6 @@ public class TransactionControllerIntegrationIT
 {
     @Autowired
     TransactionServiceImpl transactionService;
-
-    @Autowired
-    private TransactionRepository transactionRepository;
 
     @Autowired
     private MockMvc mockMvc;

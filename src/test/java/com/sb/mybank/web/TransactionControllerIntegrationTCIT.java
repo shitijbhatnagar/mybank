@@ -5,7 +5,7 @@ import com.sb.mybank.MybankApplication;
 import com.sb.mybank.config.ContainersEnv;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.dto.TransactionDTO;
-import com.sb.mybank.repository.TransactionRepository;
+import com.sb.mybank.service.TransactionServiceImpl;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -29,13 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Profile("test")
 @Slf4j
-@Testcontainers
 @SpringBootTest(classes = MybankApplication.class) //Required for bootstrapping the entire Spring container
 @AutoConfigureMockMvc
 public class TransactionControllerIntegrationTCIT extends ContainersEnv
 {
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionServiceImpl transactionService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -94,7 +92,7 @@ public class TransactionControllerIntegrationTCIT extends ContainersEnv
         int assertValue = 2; //default will be INDIVIDUAL
 
         if(!testMode.equals(APIEndPointsAndConstants.const_testModeIndividual)) assertValue = 3;
-        assertEquals(assertValue, transactionRepository.findAll().size());
+        assertEquals(assertValue, transactionService.findAll().size());
         log.debug("TransactionControllerIntegrationTCIT: @int_http_tc_createTransaction Successful transaction created from POST /transactions");
         log.info("TransactionControllerIntegrationTCIT: @int_http_tc_createTransaction executed successfully");
     }
@@ -118,7 +116,7 @@ public class TransactionControllerIntegrationTCIT extends ContainersEnv
         int assertValue = 1; //default will be INDIVIDUAL
 
         if(!testMode.equals(APIEndPointsAndConstants.const_testModeIndividual)) assertValue = 2;
-        assertEquals(assertValue, transactionRepository.findAll().size());
+        assertEquals(assertValue, transactionService.findAll().size());
         log.debug("TransactionControllerIntegrationTCIT: @int_http_tc_getTransactions Successful transaction created from POST /transactions");
         log.info("TransactionControllerIntegrationTCIT: @int_http_tc_getTransactions executed successfully");
     }
