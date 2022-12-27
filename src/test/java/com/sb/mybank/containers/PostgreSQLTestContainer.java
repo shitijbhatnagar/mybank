@@ -6,9 +6,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 //Create the PostgreSQL Test container
 public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestContainer>
 {
-    public static PostgreSQLContainer container;
+    private static PostgreSQLContainer container;
 
-    public PostgreSQLTestContainer() {
+    private PostgreSQLTestContainer() {
         super(APIEndPointsAndConstants.const_PostgreSQL_Version);
     }
 
@@ -30,5 +30,7 @@ public class PostgreSQLTestContainer extends PostgreSQLContainer<PostgreSQLTestC
     @Override
     public void stop()
     {
+        //No special action as yet
+        super.stop();
     }
 }
