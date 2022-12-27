@@ -31,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @Profile("test")
 @Slf4j
-@ExtendWith(MockitoExtension.class)
 @WebMvcTest(controllers = TransactionController.class) //needed to do HTTP test of a controller (and use mock data)
 @Import(TestConfig.class)
 public class TransactionControllerAPITest
