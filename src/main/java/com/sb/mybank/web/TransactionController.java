@@ -5,8 +5,8 @@ import com.sb.mybank.dto.TransactionDTO;
 import com.sb.mybank.exception.TransactionNotFoundException;
 import com.sb.mybank.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -24,6 +24,7 @@ public class TransactionController
     }
 
     @GetMapping(APIEndPointsAndConstants.api_getCreateTransactions)
+    @ResponseStatus(code = HttpStatus.OK)
     public List<TransactionDTO> getTransactions()
     {
         log.info("TransactionController: Controller end point to GET TRANSACTIONS");
@@ -31,6 +32,7 @@ public class TransactionController
     }
 
     @GetMapping(APIEndPointsAndConstants.api_getCreateTransactions + "/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
     public TransactionDTO getTransaction(@NotNull @Valid @PathVariable String id)
     {
         log.info("TransactionController: Controller end point to GET TRANSACTION for id " + id);
@@ -44,6 +46,7 @@ public class TransactionController
     }
 
     @PostMapping(APIEndPointsAndConstants.api_createTransaction)
+    @ResponseStatus(code = HttpStatus.CREATED)
      public TransactionDTO createTransaction(@RequestBody @Valid TransactionDTO dto)
      {
          //Pass on amount and reference

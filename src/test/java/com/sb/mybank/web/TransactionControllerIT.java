@@ -178,7 +178,7 @@ public class TransactionControllerIT
                 .withRequestBody(matchingJsonPath("timestamp"))
                 .withRequestBody(matchingJsonPath("reference"))
                 .withRequestBody(matchingJsonPath("amount"))
-                .willReturn(ok())
+                .willReturn(created())
                 .willReturn(aResponse().withBody(MockDataProvider.getMockCreateTransactionResponseJSON())));
 
         log.debug("TransactionControllerIT: @wiremock_happy_dataJsonMatch_createTransaction: Stubbing done successfully");

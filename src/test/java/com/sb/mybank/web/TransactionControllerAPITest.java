@@ -76,7 +76,7 @@ public class TransactionControllerAPITest
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         log.debug("TransactionControllerAPITest: @http_createTransactionAPI Successful transaction created from POST /transactions");
         log.info("TransactionControllerAPITest: @http_createTransactionAPI executed successfully");
