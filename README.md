@@ -1,3 +1,6 @@
+'MyBank' V2
+- This project has been updated to JDK 17 and Spring Boot 3.4
+
 'MyBank' V1
 
 - This project 'mybank' demonstrates the use of Spring Boot, H2/PostgreSQL to build a simple REST app (GET/POST)

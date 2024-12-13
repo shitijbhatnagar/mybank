@@ -2,8 +2,8 @@ package com.sb.mybank.model;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Getter
