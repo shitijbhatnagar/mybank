@@ -1,3 +1,8 @@
+'My Bank' V3
+- Added Postman collection and Swagger (under /resources folder)
+- Access the Swagger Specs at: URL /v3/api-docs
+- Access the Swagger UI / API descriptions at URL /swagger-ui/index.html
+
 'MyBank' V2
 - This project has been updated to JDK 17 and Spring Boot 3.4
 

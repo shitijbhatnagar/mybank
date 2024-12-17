@@ -17,10 +17,4 @@ public class TestConfig
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
     }
-
-    @Bean
-    public TestRestTemplate testRestTemplate()
-    {
-        return new TestRestTemplate();
-    }
 }

@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "d710279f-c99c-412c-97f6-75fb10f4dad6",
+		"name": "MyBank Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17277764",
+		"_collection_link": "https://martian-crescent-476990.postman.co/workspace/Spring-Testing~1e9d2799-1822-4d76-85be-e2583800184f/collection/17277764-d710279f-c99c-412c-97f6-75fb10f4dad6?action=share&source=collection_link&creator=17277764"
+	},
+	"item": [
+		{
+			"name": "List Transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"transactions"
+					]
+				},
+				"description": "List Transactions"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_Id\": \"2\",\r\n    \"account_id\": \"1\",\r\n    \"amount\": 50.0,\r\n    \"reference\": \"Transactions narrative\",\r\n\t\"date_time\": \"13-02-2022\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
