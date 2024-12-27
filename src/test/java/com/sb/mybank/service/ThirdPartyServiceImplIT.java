@@ -39,6 +39,25 @@ public class ThirdPartyServiceImplIT
         log.info("ThirdPartyServiceIT: wiremock_happy_ok_publicapi executed successfully");
     }
 
+    //Hit a public API end point
+    @Test
+    public void happy_ok_publicapi()
+    {
+        //Step 1 - When: invoke the Public service/API
+        log.debug("ThirdPartyServiceIT: happy_ok_publicapi: Attempting API Request");
+
+        //Wiremock is not to be used, hence the service should point to the real third party service
+        thirdPartyService.setHost(APIEndPointsAndConstants.api_publicAPIHostPort);
+
+        boolean apiAvailability = thirdPartyService.IsServiceAvailable(APIEndPointsAndConstants.api_publicAPIEndpoint);
+        log.debug("ThirdPartyServiceIT: happy_ok_publicapi: API Request executed");
+
+        //Step 2 - Assert & verify
+        assertEquals(true,apiAvailability);
+        log.debug("ThirdPartyServiceIT: happy_ok_publicapi: Asserts executed successfully");
+        log.info("ThirdPartyServiceIT: happy_ok_publicapi executed successfully");
+    }
+
     @BeforeAll
     static void setup()
     {
