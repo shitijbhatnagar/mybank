@@ -25,6 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/*
+ * Pre-requisites:
+ * 1) Ensure Docker Service is running on your machine (if Windows, in Services)
+ * 2) Ensure Docker Desktop is running (so you can see visually how a new container gets created and destroyed)
+ */
+
 @ActiveProfiles("test")
 @Profile("test")
 @Slf4j

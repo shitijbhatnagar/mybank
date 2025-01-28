@@ -149,6 +149,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bctls-jdk15to18</artifactId>
+			<version>1.78</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -176,6 +189,10 @@
 						<include>**/*.*Test.java</include>
 						<include>**/*.*IT.java</include>
 					</includes>
+					<!-- Use this section to exclude Test Containers related test cases from build-->
+					<excludes>
+						<exclude>**/*.*TC*.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
