@@ -1,10 +1,10 @@
 package com.sb.mybank.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.security.Security;
 import java.util.Map;
 
 @Slf4j
@@ -22,5 +22,13 @@ public class RootConfig {
                 log.debug("\t" + entry.getKey() + ": " + entry.getValue());
             }
         }
+    }
+
+    @Bean
+    public ObjectMapper objectMapper()
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
     }
 }
