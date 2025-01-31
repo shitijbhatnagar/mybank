@@ -1,3 +1,7 @@
+'My Bank V4
+- Added Jasypt encryption (using Jasypt CLI)
+- Minor changes to Swagger json file
+
 'My Bank' V3
 - Added Postman collection and Swagger (under /resources folder)
 - Access the Swagger Specs at: URL /v3/api-docs

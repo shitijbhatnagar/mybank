@@ -1,100 +1,100 @@
 {
-  openapi: "3.0.1",
-  info: {
-    title: "OpenAPI definition",
-    version: "v0"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
   },
-  servers: [
+  "servers": [
     {
-      url: "http://localhost:8081",
-      description: "Generated server url"
+      "url": "http://localhost:8081",
+      "description": "My Bank Application"
     }
   ],
-  paths: {
-    /transactions: {
-      get: {
-        tags: [
+  "paths": {
+    "/transactions": {
+      "get": {
+        "tags": [
           "transaction-controller"
         ],
-        operationId: "getTransactions",
-        responses: {
-          200: {
-            description: "OK",
-            content: {
-              */*: {
-                schema: {
-                  type: "array",
-                  items: {
-                    $ref: "#/components/schemas/TransactionDTO"
+        "operationId": "getTransactions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionDTO"
                   }
                 }
               }
             }
           },
-          400: {
-            description: "Bad Request",
-            content: {
-              */*: {
-                schema: {
-                  $ref: "#/components/schemas/ErrorDTO"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
                 }
               }
             }
           },
-          404: {
-            description: "Not Found",
-            content: {
-              */*: {
-                schema: {
-                  $ref: "#/components/schemas/ErrorDTO"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
                 }
               }
             }
           }
         }
       },
-      post: {
-        tags: [
+      "post": {
+        "tags": [
           "transaction-controller"
         ],
-        operationId: "createTransaction",
-        requestBody: {
-          content: {
-            application/json: {
-              schema: {
-                $ref: "#/components/schemas/TransactionDTO"
+        "operationId": "createTransaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionDTO"
               }
             }
           },
-          required: true
+          "required": true
         },
-        responses: {
-          201: {
-            description: "Created",
-            content: {
-              */*: {
-                schema: {
-                  $ref: "#/components/schemas/TransactionDTO"
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDTO"
                 }
               }
             }
           },
-          400: {
-            description: "Bad Request",
-            content: {
-              */*: {
-                schema: {
-                  $ref: "#/components/schemas/ErrorDTO"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
                 }
               }
             }
           },
-          404: {
-            description: "Not Found",
-            content: {
-              */*: {
-                schema: {
-                  $ref: "#/components/schemas/ErrorDTO"
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
                 }
               }
             }
@@ -102,101 +102,101 @@
         }
       }
     },
-    /transactions/{id}: {
-get: {
-tags: [
-"transaction-controller"
-],
-operationId: "getTransaction",
-parameters: [
-{
-name: "id",
-in: "path",
-required: true,
-schema: {
-type: "string"
-}
-}
-],
-responses: {
-200: {
-description: "OK",
-content: {
-*/*: {
-schema: {
-$ref: "#/components/schemas/TransactionDTO"
-}
-}
-}
-},
-400: {
-description: "Bad Request",
-content: {
-*/*: {
-schema: {
-$ref: "#/components/schemas/ErrorDTO"
-}
-}
-}
-},
-404: {
-description: "Not Found",
-content: {
-*/*: {
-schema: {
-$ref: "#/components/schemas/ErrorDTO"
-}
-}
-}
-}
-}
-}
-}
-},
-components: {
-schemas: {
-ErrorDTO: {
-type: "object",
-properties: {
-errorMessage: {
-type: "string"
-},
-fieldNames: {
-type: "array",
-items: {
-type: "string"
-}
-}
-}
-},
-TransactionDTO: {
-required: [
-"amount",
-"reference",
-"userId"
-],
-type: "object",
-properties: {
-id: {
-type: "string"
-},
-userId: {
-type: "string"
-},
-timestamp: {
-type: "string",
-format: "date-time"
-},
-reference: {
-type: "string"
-},
-amount: {
-maximum: 100,
-minimum: 1,
-type: "number"
-}
-}
-}
-}
-}
+    "/transactions/{id}": {
+      "get": {
+        "tags": [
+          "transaction-controller"
+        ],
+        "operationId": "getTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorDTO": {
+        "type": "object",
+        "properties": {
+          "errorMessage": {
+            "type": "string"
+          },
+          "fieldNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "TransactionDTO": {
+        "required": [
+          "amount",
+          "reference",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "amount": {
+            "maximum": 100,
+            "minimum": 1,
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
 }

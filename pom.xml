@@ -18,6 +18,7 @@
 	</properties>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -149,17 +150,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.github.tomakehurst</groupId>
-				<artifactId>wiremock-jre8</artifactId>
-				<version>2.35.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.5</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -176,6 +174,10 @@
 						<include>**/*.*Test.java</include>
 						<include>**/*.*IT.java</include>
 					</includes>
+					<!-- Use this section to exclude Test Containers related test cases from build-->
+					<excludes>
+						<exclude>**/*.*TC*.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>

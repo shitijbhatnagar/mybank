@@ -1,2 +1,2 @@
 INSERT INTO T_REFERRAL (ID, NAME)
-VALUES ('10101225-bfff-4bb7-b13b-cdba27910101','Seed Data System');
+VALUES ('12345225-bfff-4bb7-b13b-cdba27912345','Seed Data System');
