@@ -26,21 +26,17 @@
             <version>0.0.2-SNAPSHOT</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.sb.mybank</groupId>-->
-<!--            <artifactId>mybank-runnable</artifactId>-->
-<!--            <version>0.0.2-SNAPSHOT</version>-->
-<!--&lt;!&ndash;            <classifier>jar-for-remote</classifier>&ndash;&gt;-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.sb.mybank</groupId>
+            <artifactId>mybank-runnable</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+            <classifier>consumer</classifier>
+        </dependency>
 
     </dependencies>
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>

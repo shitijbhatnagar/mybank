@@ -151,49 +151,37 @@
             <version>3.0.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            <version>3.4.2</version>-->
-<!--        </dependency>-->
-
     </dependencies>
 
     <build>
+
         <plugins>
 
+            <!-- This plug-in creates the runnable jar that can be used by a consumer or caller (in this case remote) -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <mainClass>com.sb.mybank.MybankApplication</mainClass>-->
-<!--                </configuration>-->
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>consumer</classifier>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/test/*</exclude>
+                                <exclude>**/*.json</exclude>
+                                <exclude>**/*.properties</exclude>
+                                <exclude>**/*.xml</exclude>
+                                <exclude>**/*.sql</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-
-            <!-- This is to create a non-spring boot but java jar to be used in remote module -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>-->
-<!--                            package-->
-<!--                        </phase>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <classifier>-->
-<!--                        jar-for-remote-->
-<!--                    </classifier>-->
-<!--                    <includes>-->
-<!--                        **/*-->
-<!--                    </includes>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -204,14 +192,12 @@
                         <include>**/*.*Test.java</include>
                         <include>**/*.*IT.java</include>
                     </includes>
-                    <!-- Use this section to exclude Test Containers related test cases from build-->
+                    <!-- Use this section to exclude Test Containers related test cases from the regular build -->
                     <excludes>
                         <exclude>**/*.*TC*.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
-
-
         </plugins>
     </build>
 
