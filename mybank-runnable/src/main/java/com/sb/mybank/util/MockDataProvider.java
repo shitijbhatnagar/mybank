@@ -1,12 +1,11 @@
 package com.sb.mybank.util;
 
 import com.sb.mybank.constants.APIEndPointsAndConstants;
-import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.model.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.*;
 

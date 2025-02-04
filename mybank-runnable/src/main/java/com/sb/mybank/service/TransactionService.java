@@ -1,6 +1,6 @@
 package com.sb.mybank.service;
 
-import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.model.objects.TransactionDTO;
 import java.util.List;
 
 public interface TransactionService

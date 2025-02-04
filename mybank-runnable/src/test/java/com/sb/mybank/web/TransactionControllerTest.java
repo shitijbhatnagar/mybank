@@ -4,7 +4,7 @@
 
 package com.sb.mybank.web;
 
-import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.service.TransactionServiceImpl;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;

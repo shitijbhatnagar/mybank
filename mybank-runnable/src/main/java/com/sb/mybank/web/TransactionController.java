@@ -1,7 +1,7 @@
 package com.sb.mybank.web;
 
 import com.sb.mybank.constants.APIEndPointsAndConstants;
-import com.sb.mybank.dto.TransactionDTO;
+import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.exception.TransactionNotFoundException;
 import com.sb.mybank.service.TransactionService;
 import lombok.extern.slf4j.Slf4j;
