@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  * This is a real integration test (like a consumer of the service would do) using the Remote library "mybank-remote"
- * The srevice end point should be functional for this test to succeed
+ * The service end point should be functional for this test to succeed
  */
 @ActiveProfiles("integrated")
 @Profile("integrated")
