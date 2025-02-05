@@ -3,7 +3,7 @@ package com.sb.mybank.service;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.model.Transaction;
 import com.sb.mybank.repository.TransactionRepository;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ class TransactionServiceTest {
     void ut_findAll()
     {
         log.debug("TransactionServiceTest: @ut_findAll");
-        when(accountTransactionRepository.findAll()).thenReturn(MockDataProvider.getMockTransactionEntityList());
+        when(accountTransactionRepository.findAll()).thenReturn(DataUtils.getMockTransactionEntityList());
         log.debug("TransactionServiceTest: @ut_findAll - Mock account transaction list returned");
         assertEquals(3, accountTransactionService.findAll().size());
         log.debug("TransactionServiceTest: @ut_findAll - assertEquals check executed");
@@ -49,8 +49,8 @@ class TransactionServiceTest {
     {
         log.debug("TransactionServiceTest: @ut_createTransaction");
 
-        TransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO(); //what comes from API consumer
-        Transaction inputEntity = MockDataProvider.convertDTOToEntity(inputDTO); //what is given to Repository
+        TransactionDTO inputDTO = DataUtils.getMockTransactionDTO(); //what comes from API consumer
+        Transaction inputEntity = DataUtils.convertDTOToEntity(inputDTO); //what is given to Repository
 
         //Using lenient() since Mockito is matching Entity object signatures/addresses & they can be different but same data
         lenient().when(accountTransactionRepository.save(inputEntity)).thenReturn(inputEntity);

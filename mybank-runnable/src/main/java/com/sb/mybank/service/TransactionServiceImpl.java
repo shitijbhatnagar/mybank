@@ -3,7 +3,7 @@ package com.sb.mybank.service;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.model.Transaction;
 import com.sb.mybank.repository.TransactionRepository;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         List<TransactionDTO> transactionsDTOList = new CopyOnWriteArrayList<>();
         for (Transaction accountTransaction : accountTransactionRepository.findAll()) {
-            transactionsDTOList.add(MockDataProvider.convertEntityToDTO(accountTransaction));
+            transactionsDTOList.add(DataUtils.convertEntityToDTO(accountTransaction));
         }
         log.debug("TransactionServiceImpl: findAll() Transactions retrieved : " + transactionsDTOList.size());
         log.info("TransactionServiceImpl: findAll() Transactions retrieved : " + transactionsDTOList.size());
@@ -45,7 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
         {
             log.debug("TransactionServiceImpl: findTransactionById() Transactions retrieved for id " + id);
             log.info("TransactionServiceImpl: findTransactionById() Transactions retrieved for id " + id);
-            return MockDataProvider.convertEntityToDTO(optionalTransaction.get());
+            return DataUtils.convertEntityToDTO(optionalTransaction.get());
         }
 
         log.debug("Unable to locate requested transaction with id " + id);
@@ -61,7 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
         //The values above are coming from a DTO only, so no need for any conversions
         log.debug("AccountTransactionDAO: createInDB() -Transaction created for user " + inputDTO.getUserId() + "and amount " + inputDTO.getAmount());
 
-        Transaction transaction = MockDataProvider.convertDTOToEntity(inputDTO);
+        Transaction transaction = DataUtils.convertDTOToEntity(inputDTO);
         accountTransactionRepository.save(transaction);
         log.debug("TransactionServiceImpl: createInDB() - New Transaction successfully created");
 

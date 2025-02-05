@@ -5,7 +5,7 @@ import com.sb.mybank.MybankApplication;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.service.TransactionServiceImpl;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class TransactionControllerIntegrationIT
     @SqlGroup({@Sql(value = "classpath:schema-test.sql", executionPhase = BEFORE_TEST_METHOD)})
     void int_http_createTransaction() throws Exception {
 
-        TransactionDTO inputDTO = MockDataProvider.getTestTransactionDTO();
+        TransactionDTO inputDTO = DataUtils.getTestTransactionDTO();
         log.debug("TransactionControllerIntegrationIT: @int_http_createTransaction 01 real transaction data created for POST /transactions");
 
         mockMvc.perform( MockMvcRequestBuilders

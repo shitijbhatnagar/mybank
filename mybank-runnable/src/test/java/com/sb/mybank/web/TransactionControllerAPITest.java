@@ -9,7 +9,7 @@ import com.sb.mybank.config.TestConfig;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.service.TransactionService;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class TransactionControllerAPITest
     //Invoke "/transactions" end pont to get mock data
     public void http_getTransactionsAPI() throws Exception
     {
-        when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionDTOList());
+        when(accountTransactionService.findAll()).thenReturn(DataUtils.getMockTransactionDTOList());
         log.debug("TransactionControllerAPITest: @http_getTransactionsAPI Mock transaction data set for GET /transactions end point");
 
         log.debug("TransactionControllerAPITest: @http_getTransactionsAPI Transaction end point GET /transactions invoked");
@@ -62,7 +62,7 @@ public class TransactionControllerAPITest
     @Test
     public void http_createTransactionAPI() throws Exception
     {
-        TransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO();
+        TransactionDTO inputDTO = DataUtils.getMockTransactionDTO();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
         log.debug("TransactionControllerAPITest: @http_createTransactionAPI NEW 01 Mock transaction data created for POST /transactions");

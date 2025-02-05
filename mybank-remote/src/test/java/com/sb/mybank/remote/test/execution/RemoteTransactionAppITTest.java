@@ -6,7 +6,7 @@ import com.sb.mybank.MybankApplication;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.remote.config.RemoteTransactionConfig;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
@@ -75,7 +75,7 @@ public class RemoteTransactionAppITTest
                         .withHeader("Content-Type",
                                 "application/json;charset=UTF-8")
                         .withResponseBody(Body.fromJsonBytes(objectMapper.writeValueAsBytes(
-                                        MockDataProvider.getMockTransactionDTOList())))));
+                                        DataUtils.getMockTransactionDTOList())))));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -99,7 +99,7 @@ public class RemoteTransactionAppITTest
     {
         log.debug("RemoteTransactionAppITTest - Setting up necessary mocking for testCreateTransaction()");
 
-        TransactionDTO transactionData = MockDataProvider.getTestTransactionDTO();
+        TransactionDTO transactionData = DataUtils.getTestTransactionDTO();
 
         stubFor(post(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
                 .willReturn(ok())
@@ -107,7 +107,7 @@ public class RemoteTransactionAppITTest
                         .withHeader("Content-Type",
                                 "application/json;charset=UTF-8")
                         .withResponseBody(Body.fromJsonBytes(objectMapper.writeValueAsBytes(
-                                MockDataProvider.getTestCreatedTransactionDTO(transactionData))))));
+                                DataUtils.getTestCreatedTransactionDTO(transactionData))))));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -129,7 +129,7 @@ public class RemoteTransactionAppITTest
     {
         log.debug("RemoteTransactionAppITTest - Setting up necessary mocking for testGetSingleTransaction()");
 
-        TransactionDTO transactionDto = MockDataProvider.getMockTransactionDTO();
+        TransactionDTO transactionDto = DataUtils.getMockTransactionDTO();
         stubFor(get(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions + "/" + transactionDto.getId()))
                 .willReturn(ok())
                 .willReturn(aResponse()

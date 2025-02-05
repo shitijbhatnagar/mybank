@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 @Slf4j
-public class MockDataProvider
+public class DataUtils
 {
     //Return a list of mocked account transaction DTOs
     public static List<TransactionDTO> getMockTransactionDTOList()
@@ -39,7 +39,7 @@ public class MockDataProvider
         transactionDTO3.setReference("mock sample 3");
         transactionDTO3.setAmount(BigDecimal.valueOf(82));
 
-        log.debug("MockDataProvider: Transaction mock dto data returned");
+        log.debug("DataUtils: Transaction mock dto data returned");
 
         return Arrays.asList(transactionDTO1, transactionDTO2, transactionDTO3);
     }
@@ -70,7 +70,7 @@ public class MockDataProvider
         transaction3.setReference("mock sample 3");
         transaction3.setAmount(BigDecimal.valueOf(82));
 
-        log.debug("MockDataProvider: Transaction mock entity data returned");
+        log.debug("DataUtils: Transaction mock entity data returned");
 
         return Arrays.asList(transaction1, transaction2, transaction3);
     }
@@ -126,7 +126,7 @@ public class MockDataProvider
         transactionDTO.setUserId(transaction.getUserId());
         transactionDTO.setAmount(transaction.getAmount());
         transactionDTO.setTimestamp(transaction.getTimestamp().toLocalDateTime().atZone(ZoneId.systemDefault()));
-        log.debug("MockDataProvider: convertEntityToDTO() successfully called");
+        log.debug("DataUtils: convertEntityToDTO() successfully called");
         return transactionDTO;
     }
 
@@ -153,7 +153,7 @@ public class MockDataProvider
         transaction.setUserId(transactionDTO.getUserId());
         transaction.setReference(transactionDTO.getReference());
         transaction.setAmount(transactionDTO.getAmount());
-        log.debug("MockDataProvider: convertDTOToEntity() successfully called");
+        log.debug("DataUtils: convertDTOToEntity() successfully called");
         return transaction;
     }
 

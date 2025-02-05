@@ -6,7 +6,7 @@ package com.sb.mybank.web;
 
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.service.TransactionServiceImpl;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,14 +35,14 @@ class TransactionControllerTest {
         log.debug("TransactionControllerTest: @ut_testFindAll");
 
         //When the service is called, DAO class should not be called and mocked data should be returned
-        when(accountTransactionService.findAll()).thenReturn(MockDataProvider.getMockTransactionDTOList());
+        when(accountTransactionService.findAll()).thenReturn(DataUtils.getMockTransactionDTOList());
 
         //Invoke the controller method (like any java class) to get a list of transactions
         List<TransactionDTO> transactions = accountTransactionController.getTransactions();
         log.debug("TransactionControllerTest: @ut_testFindAll - Mock account transaction created / returned");
 
         //Check expected no of mocked transactions are returned
-        assertEquals(MockDataProvider.getMockTransactionDTOList().size(), transactions.size());
+        assertEquals(DataUtils.getMockTransactionDTOList().size(), transactions.size());
         log.debug("TransactionControllerTest: @ut_testFindAll - assertEquals check executed");
         log.info("TransactionControllerTest: @ut_testFindAll executed successfully");
     }
@@ -53,7 +53,7 @@ class TransactionControllerTest {
     {
         log.debug("TransactionControllerTest: @ut_createTransaction");
 
-        TransactionDTO inputDTO = MockDataProvider.getMockTransactionDTO();
+        TransactionDTO inputDTO = DataUtils.getMockTransactionDTO();
 
         when(accountTransactionService.createInDB(inputDTO)).thenReturn(inputDTO);
         log.debug("TransactionControllerTest: @ut_createTransaction - Mock account transaction created / returned");

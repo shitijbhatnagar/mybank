@@ -4,7 +4,7 @@ import com.sb.mybank.MybankApplication;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.remote.config.RemoteTransactionConfig;
 import com.sb.mybank.remote.service.RemoteTransactionAppService;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class RemoteTransactionAppIntegratedITTest
     public void testCreateTransaction() throws Exception {
 
         log.debug("RemoteTransactionAppIntegratedITTest - starting to create a transaction");
-        TransactionDTO response = remoteTransactionAppService.createTransaction(MockDataProvider.getTestTransactionDTO());
+        TransactionDTO response = remoteTransactionAppService.createTransaction(DataUtils.getTestTransactionDTO());
         log.debug("RemoteTransactionAppIntegratedITTest - transaction detail is " + response.toString());
 
         //Validate the newly created transaction is not null

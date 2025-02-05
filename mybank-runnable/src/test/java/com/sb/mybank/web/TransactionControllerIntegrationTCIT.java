@@ -6,7 +6,7 @@ import com.sb.mybank.config.ContainersEnv;
 import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.service.TransactionServiceImpl;
-import com.sb.mybank.util.MockDataProvider;
+import com.sb.mybank.util.DataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -77,7 +77,7 @@ public class TransactionControllerIntegrationTCIT extends ContainersEnv
     @Test
     void int_http_tc_createTransaction() throws Exception {
 
-        TransactionDTO inputDTO = MockDataProvider.getTestTransactionDTO();
+        TransactionDTO inputDTO = DataUtils.getTestTransactionDTO();
         log.debug("TransactionControllerIntegrationTCIT: @int_http_tc_createTransaction 01 real transaction data created for POST /transactions");
 
         mockMvc.perform( MockMvcRequestBuilders
