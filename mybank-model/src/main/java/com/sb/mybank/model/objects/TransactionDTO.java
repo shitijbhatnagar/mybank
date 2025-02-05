@@ -1,6 +1,7 @@
 package com.sb.mybank.model.objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import org.springframework.stereotype.Component;

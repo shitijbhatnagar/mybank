@@ -1,112 +1,165 @@
 package com.sb.mybank.remote.test.execution;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import com.sb.mybank.MybankApplication;
+import com.sb.mybank.constants.APIEndPointsAndConstants;
 import com.sb.mybank.model.objects.TransactionDTO;
 import com.sb.mybank.remote.config.RemoteTransactionConfig;
-import com.sb.mybank.remote.service.RemoteTransactionAppService;
 import com.sb.mybank.util.MockDataProvider;
 import lombok.extern.slf4j.Slf4j;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import com.github.tomakehurst.wiremock.http.Body;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
-import static org.junit.Assert.*;
 
 /**
- * This is a real integration test (like a consumer of the service would do) using the Remote library "mybank-remote"
+ * This integration test uses Wiremock for local API testing
+ * This is only intended to validate API functionality (/transactions end point) without hitting real API service
  */
 @ActiveProfiles("remote")
 @Profile("remote")
-@Slf4j
 @ContextConfiguration(classes = {RemoteTransactionConfig.class})
 @SpringBootTest(classes = MybankApplication.class) //Required for bootstrapping the entire Spring container
+@Slf4j
 public class RemoteTransactionAppITTest
 {
-//    @Autowired
-//    String transactionRemoteUrl;
+    static String stubbedUrl;
+
+    static WireMockServer wireMockServer;
+
     @Autowired
-    private RemoteTransactionAppService remoteTransactionAppService;
+    ObjectMapper objectMapper;
 
-//    @Autowired
-//    private ObjectMapper testObjectMapper;
-//
-//    @Autowired
-//    private RestTemplate remoteRestTemplate;
+    @Autowired
+    RestTemplate remoteRestTemplate;
 
-//    @Before
-//    void setup()
-//    {
-//        //remoteTransactionAppService = new RemoteTransactionAppServiceImpl(transactionRemoteUrl, remoteRestTemplate);
-//        //log.debug("RemoteTransactionAppITTest: remoteTransactionAppService re-created");
-//    }
+    @BeforeAll
+    static void setup()
+    {
+        stubbedUrl = "http://localhost:" +
+                APIEndPointsAndConstants.const_wireMockPort +
+                APIEndPointsAndConstants.api_getCreateTransactions;
 
-//    @Before
-//    void setup()
-//    {
-//        log.debug("RemoteTransactionAppITTest: Setting up Wiremock server");
-//
-//        //Setup WireMock server (internally a Jetty server)
-//        wireMockServer = new WireMockServer(APIEndPointsAndConstants.const_wireMockPort);
-//        wireMockServer.resetMappings();
-//        configureFor(APIEndPointsAndConstants.const_wireMockHost, APIEndPointsAndConstants.const_wireMockPort);
-//
-//        //Start the WireMock server
-//        wireMockServer.start();
-//        log.debug("RemoteTransactionAppITTest: Wiremock started at port " + wireMockServer.port());
-//        log.info("RemoteTransactionAppITTest: Wiremock started at port " + wireMockServer.port());
-//
-//        log.debug("RemoteTransactionAppITTest: URL to hit is " + "http://localhost:" + wireMockServer.port() + "/transactions");
-//        remoteTransactionAppService = new RemoteTransactionAppServiceImpl("http://localhost:" + wireMockServer.port() + "/transactions", remoteRestTemplate);
-//    }
+        //Setup WireMock server (internally a Jetty server)
+        wireMockServer = new WireMockServer(APIEndPointsAndConstants.const_wireMockPort);
+        configureFor(APIEndPointsAndConstants.const_wireMockHost, APIEndPointsAndConstants.const_wireMockPort);
+
+        //Start the WireMock server
+        wireMockServer.start();
+        log.debug("RemoteTransactionAppITTest: Wiremock started at port " + wireMockServer.port());
+        log.info("RemoteTransactionAppITTest: Wiremock started at port " + wireMockServer.port());
+    }
 
     @Test
     public void testGetTransactions() throws Exception
     {
-        log.debug("RemoteTransactionAppITTest - starting to retrieve transactions");
-        List<TransactionDTO> response = getTransactions();
-        log.debug("RemoteTransactionAppITTest - no of transactions is " + response.size());
+        log.debug("RemoteTransactionAppITTest - Setting up necessary mocking for testGetTransactions()");
 
-        //Validate the no of transactions retrieved - should be above 0
-        assertNotEquals(response.size(),0);
+        stubFor(get(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
+                .willReturn(ok())
+                .willReturn(aResponse()
+                        .withHeader("Content-Type",
+                                "application/json;charset=UTF-8")
+                        .withResponseBody(Body.fromJsonBytes(objectMapper.writeValueAsBytes(
+                                        MockDataProvider.getMockTransactionDTOList())))));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        List<TransactionDTO> transactionDataList = List.of();
+        ResponseEntity<List<TransactionDTO>> response;
+
+        HttpEntity<List<TransactionDTO>> httpEntity = new HttpEntity<>(transactionDataList, headers);
+        response = remoteRestTemplate.exchange(stubbedUrl, HttpMethod.GET, httpEntity,
+                new ParameterizedTypeReference<List<TransactionDTO>>() {
+                });
+
+        transactionDataList = response.getBody();
+
+        assertEquals(transactionDataList.size(),3);
+        log.debug("RemoteTransactionAppITTest: testGetTransactions - retrieval complete : " + transactionDataList.toString());
     }
 
-    private List<TransactionDTO> getTransactions() throws Exception
+    @Test
+    public void testCreateTransaction() throws Exception
     {
-        return remoteTransactionAppService.retrieveTransactions();
+        log.debug("RemoteTransactionAppITTest - Setting up necessary mocking for testCreateTransaction()");
+
+        TransactionDTO transactionData = MockDataProvider.getTestTransactionDTO();
+
+        stubFor(post(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions))
+                .willReturn(ok())
+                .willReturn(aResponse()
+                        .withHeader("Content-Type",
+                                "application/json;charset=UTF-8")
+                        .withResponseBody(Body.fromJsonBytes(objectMapper.writeValueAsBytes(
+                                MockDataProvider.getTestCreatedTransactionDTO(transactionData))))));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<TransactionDTO> response;
+        HttpEntity<TransactionDTO> httpEntity = new HttpEntity<>(transactionData, headers);
+        response = remoteRestTemplate.exchange(stubbedUrl, HttpMethod.POST, httpEntity,
+                new ParameterizedTypeReference<TransactionDTO>() {
+                });
+
+        TransactionDTO transactionCreated = response.getBody();
+
+        assertEquals(transactionData.getReference(), transactionCreated.getReference());
+        log.debug("RemoteTransactionAppITTest: testCreateTransaction - creation complete : " + transactionCreated.toString());
     }
 
     @Test
-    public void testGetTransaction() throws Exception {
+    public void testGetSingleTransaction() throws Exception
+    {
+        log.debug("RemoteTransactionAppITTest - Setting up necessary mocking for testGetSingleTransaction()");
 
-        String id = getTransactions().stream().findAny().stream().iterator().next().getId();
-        log.debug("RemoteTransactionAppITTest - starting to retrieve single transaction");
-        TransactionDTO response = remoteTransactionAppService.retrieveTransaction(id);
-        log.debug("RemoteTransactionAppITTest - transaction detail is " + response.toString());
+        TransactionDTO transactionDto = MockDataProvider.getMockTransactionDTO();
+        stubFor(get(urlPathEqualTo(APIEndPointsAndConstants.api_getCreateTransactions + "/" + transactionDto.getId()))
+                .willReturn(ok())
+                .willReturn(aResponse()
+                        .withHeader("Content-Type",
+                                "application/json;charset=UTF-8")
+                        .withResponseBody(Body.fromJsonBytes(objectMapper.writeValueAsBytes(
+                                transactionDto)))));
 
-        //Validate the transaction retrieved
-        assertEquals(response.getId(),id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        TransactionDTO transactionData = new TransactionDTO();
+        ResponseEntity<TransactionDTO> response;
+
+        HttpEntity<TransactionDTO> httpEntity = new HttpEntity<>(transactionData, headers);
+        response = remoteRestTemplate.exchange(stubbedUrl + "/" + transactionDto.getId(), HttpMethod.GET, httpEntity,
+                new ParameterizedTypeReference<TransactionDTO>() {
+                });
+
+        transactionData = response.getBody();
+
+        assertEquals(transactionData.getId(),transactionDto.getId());
+        log.debug("RemoteTransactionAppITTest: testGetSingleTransaction - retrieval complete : " + transactionData.toString());
     }
 
-    @Test
-    public void testCreateTransaction() throws Exception {
-
-        log.debug("RemoteTransactionAppITTest - starting to create a transaction");
-        TransactionDTO response = remoteTransactionAppService.createTransaction(MockDataProvider.getTestTransactionDTO());
-        log.debug("RemoteTransactionAppITTest - transaction detail is " + response.toString());
-
-        //Validate the newly created transaction is not null
-        assertNotNull(response.getId());
+    @AfterAll
+    static void cleanup()
+    {
+        log.debug("RemoteTransactionAppITTest: Wiremock stop being attempted at port " + wireMockServer.port());
+        wireMockServer.stop();
+        log.debug("RemoteTransactionAppITTest: Wiremock stopped");
     }
-
-
-//    @After
-//    void cleanup()
-//    {
-//        log.debug("RemoteTransactionAppITTest: Wiremock stop being attempted at port " + wireMockServer.port());
-//        wireMockServer.stop();
-//        log.debug("RemoteTransactionAppITTest: Wiremock stopped");
-//    }
 }

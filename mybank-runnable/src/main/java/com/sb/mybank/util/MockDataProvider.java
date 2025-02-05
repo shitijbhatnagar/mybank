@@ -94,11 +94,25 @@ public class MockDataProvider
         TransactionDTO inputDTO = new TransactionDTO();
         inputDTO.setUserId("mockUser001");
         inputDTO.setTimestamp(ZonedDateTime.now(ZoneId.systemDefault()));
-        inputDTO.setReference("mock sample 1");
-        inputDTO.setAmount(BigDecimal.valueOf(1));
+        inputDTO.setReference("mock sample 1 for creation purpose");
+        inputDTO.setAmount(BigDecimal.valueOf(100));
 
         return inputDTO;
     }
+
+    //This method returns DTO that can be used verify equality with a provided DTO during creation process
+    public static TransactionDTO getTestCreatedTransactionDTO(TransactionDTO dto)
+    {
+        TransactionDTO inputDTO = new TransactionDTO();
+        inputDTO.setId(new StringBuilder().append(APIEndPointsAndConstants.const_uuid.substring(0,APIEndPointsAndConstants.const_uuid.length()-1)).append("9").toString());
+        inputDTO.setUserId(dto.getUserId());
+        inputDTO.setTimestamp(dto.getTimestamp());
+        inputDTO.setReference(dto.getReference());
+        inputDTO.setAmount(dto.getAmount());
+
+        return inputDTO;
+    }
+
     public static TransactionDTO convertEntityToDTO(Transaction transaction)
     {
         TransactionDTO transactionDTO = new TransactionDTO();

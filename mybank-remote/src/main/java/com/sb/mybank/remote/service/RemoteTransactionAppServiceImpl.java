@@ -18,6 +18,11 @@ public class RemoteTransactionAppServiceImpl implements RemoteTransactionAppServ
     private String remoteUrl;
     private RestTemplate restTemplate;
 
+    public void setRemoteUrl(String url)
+    {
+        this.remoteUrl = url;
+    }
+
     @Override
     public List<TransactionDTO> retrieveTransactions() throws Exception {
         log.debug("RemoteTransactionAppServiceImpl: Starting retrieval of transactions...");
