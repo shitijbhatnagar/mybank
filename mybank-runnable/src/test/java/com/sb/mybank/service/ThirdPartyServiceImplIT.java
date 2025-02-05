@@ -10,6 +10,10 @@ import org.springframework.test.context.ActiveProfiles;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This test case is added to demonstrate the use of WireMock for an extremely simple use case for learning purpose
+ * Additionally, file also includes a real invocation (not mocking) to a 3rd party API in happy_ok_publicapi()
+ */
 @ActiveProfiles("test")
 @Profile("test")
 @Slf4j
