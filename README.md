@@ -1,3 +1,10 @@
+'My Bank V5
+- Converted application into Multi-Module Spring Boot, a structural change
+- Defined a central 'public' POM for dependency management by the name 'sb-dependency-management-springboot-pom'
+- Embedded the Transaction API in mybank-remote module (can be used by a consumer service to invoke the API)
+- New profiles "remote" and "integrated" relevant to mybank-remote module
+- Re-organized code / refactoring
+
 'My Bank V4
 - Added Jasypt encryption (using Jasypt CLI)
 - Minor changes to Swagger json file
@@ -16,11 +23,14 @@
 - The project uses the standard Spring Boot concepts like REST, JPA, Profiles, Testcontainers, JUnit, Wiremock etc
 - The project also has the necessary test code to test the main java code
 - This is the V1 (version 1) of the project & next version will add more REST support & other features
+- Note: Referral feature only exists for demonstration of Testcontainer(s) feature, it is not an exposed API or service; Referral feature has minimal code (model, repository, test case)
 
 A word on the Test Code: 
 - There are two independent entities being tested - Referral (T_REFERRAL table) and Transaction (T_TRANSACTION)
 - Any test class ending with "TCTest" or "TCIT" makes use of test container(s) - Docker and PostgreSQL & is a real integration test case
 - Integration tests (i.e. do not use mocking) are in TransactionControllerIntegrationIT, ReferralRepositoryTCTest and TransactionControllerIntegrationTCIT
+- Additional Integration Test has been written in 'RemoteTransactionAppIntegratedITTest' as part of mybank-remote module
+- For 'RemoteTransactionAppIntegratedITTest', a working service end point needs to be specified in 'remote.transaction.app.url'
 - Running any test code using Testcontainers requires Docker service & Docker Desktop to be running
 
 A word on the Test Configuration (application-test.properties):
@@ -49,6 +59,7 @@ A word on the Application URLs:
 Credits/Acknowledgements:
 
 - The project  would not have been possible without the guidance of many IT experts and their blogs
+
 - Some key public resources referred during the project are:
 
 1) Spring & Spring Boot articles on https://www.marcobehler.com 
