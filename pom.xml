@@ -39,25 +39,4 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<!-- This plug-in is required to avoid re-generation of maven jars other than necessary ones -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>repackage</id>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-	</plugins>
-	</build>
-
 </project>

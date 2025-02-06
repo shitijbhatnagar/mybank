@@ -69,3 +69,7 @@ Credits/Acknowledgements:
 3) Testcontainers (Testcontainers, JUnit)
 https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/
 https://www.youtube.com/watch?v=VfwP3GOridU (Think about IT - Youtube)
+
+Technical Debt: (to be addressed in future)
+
+1) Build process needs refinement for avoiding creation of an additional jar (mybank-runnable-xxx.jar.original) due to multiple plug-in use and need to share jars
