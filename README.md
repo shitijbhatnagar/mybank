@@ -1,6 +1,6 @@
 'My Bank' V6
 - Converted mybank-runnable into a fully executable Spring Boot archive 
-- Command to execute the application on any machine (outside IntellliJ) would be "java -jar mybank-runnable-0.0.2-SNAPSHOT.jar"
+- Command to execute the application on any machine (outside IntellliJ) would be "java -jar mybank-runnable-0.0.2-SNAPSHOT.jar" (mybank-runnable-0.0.2-SNAPSHOT.jar is the full jar file name) 
 
 'My Bank' V5
 - Converted application into Multi-Module Spring Boot, a structural change
