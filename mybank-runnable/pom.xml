@@ -157,6 +157,11 @@
 
         <plugins>
 
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <!-- This plug-in creates the runnable jar that can be used by a consumer or caller (in this case remote) -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
