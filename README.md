@@ -1,11 +1,15 @@
-'My Bank V5
+'My Bank' V6
+- Converted mybank-runnable into a fully executable Spring Boot archive 
+- Command to execute the application on any machine (outside IntellliJ) would be "java -jar mybank-runnable-0.0.2-SNAPSHOT.jar"
+
+'My Bank' V5
 - Converted application into Multi-Module Spring Boot, a structural change
 - Defined a central 'public' POM for dependency management by the name 'sb-dependency-management-springboot-pom'
 - Embedded the Transaction API in mybank-remote module (can be used by a consumer service to invoke the API)
 - New profiles "remote" and "integrated" relevant to mybank-remote module
 - Re-organized code / refactoring
 
-'My Bank V4
+'My Bank' V4
 - Added Jasypt encryption (using Jasypt CLI)
 - Minor changes to Swagger json file
 
@@ -69,7 +73,3 @@ Credits/Acknowledgements:
 3) Testcontainers (Testcontainers, JUnit)
 https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/
 https://www.youtube.com/watch?v=VfwP3GOridU (Think about IT - Youtube)
-
-Technical Debt: (to be addressed in future)
-
-1) Build process needs refinement for avoiding creation of an additional jar (mybank-runnable-xxx.jar.original) due to multiple plug-in use and need to share jars
